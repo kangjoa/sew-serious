@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>New Store</h1>
+
+<form method="POST" action="{{ url_for('main.new_store')}}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Please enter your information:</legend>
+
+        {{ form.title.label }}
+        {{ form.title }}
+
+        {% if form.title.errors %}
+        <ul>
+            {% for error in form.title.errors %}
+            <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {{ form.address.label }}
+        {{ form.address }}
+
+        {% if form.address.errors %}
+        <ul>
+            {% for error in form.address.errors %}
+            <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- submit the form -->
+        {{ form.submit }}
+    </fieldset>
+</form>
+
+
+{% endblock %}
