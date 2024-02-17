@@ -3,29 +3,32 @@ from sqlalchemy_utils import URLType
 from sewing_app.extensions import db
 from sewing_app.utils import FormEnum
 
-class ItemCategory(FormEnum):
-    """Categories of grocery items."""
-    PRODUCE = 'Produce'
-    DELI = 'Deli'
-    BAKERY = 'Bakery'
-    PANTRY = 'Pantry'
-    FROZEN = 'Frozen'
+
+class PatternCategory(FormEnum):
+    """Categories of sewing patterns."""
+    PANTS = 'Pants'
+    SHIRT = 'Shirt'
+    ACCESSORY = 'Accessory'
+    JACKET = 'Jacket'
     OTHER = 'Other'
 
-class GroceryStore(db.Model):
-    """Grocery Store model."""
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), nullable=False)
-    address = db.Column(db.String(200), nullable=False)
-    items = db.relationship('GroceryItem', back_populates='store')
 
-class GroceryItem(db.Model):
-    """Grocery Item model."""
+class Fabric(db.Model):
+    """Fabric model."""
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
-    price = db.Column(db.Float(precision=2), nullable=False)
-    category = db.Column(db.Enum(ItemCategory), default=ItemCategory.OTHER)
+    color = db.Column(db.String(80), nullable=False)
+    quantity = db.Column(db.Numeric(precision=5, scale=2), nullable=False)
     photo_url = db.Column(URLType)
-    store_id = db.Column(
-        db.Integer, db.ForeignKey('grocery_store.id'), nullable=False)
-    store = db.relationship('GroceryStore', back_populates='items')
+    patterns = db.relationship('Pattern', back_populates='fabric')
+
+
+class Pattern(db.Model):
+    """Pattern model."""
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    category = db.Column(db.Enum(PatternCategory),
+                         default=PatternCategory.OTHER)
+    fabric_id = db.Column(
+        db.Integer, db.ForeignKey('fabric.id'), nullable=False)
+    fabric = db.relationship('Fabric', back_populates='patterns')

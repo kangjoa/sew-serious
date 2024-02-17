@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from datetime import date, datetime
-from sewing_app.models import GroceryStore, GroceryItem
-from sewing_app.forms import GroceryStoreForm, GroceryItemForm
+from sewing_app.models import Fabric, Pattern
+from sewing_app.forms import FabricForm, PatternForm
 
 # Import app and db from events_app package so that we can run app
 from sewing_app.extensions import app, db
@@ -15,101 +15,101 @@ main = Blueprint("main", __name__)
 
 @main.route('/')
 def homepage():
-    all_stores = GroceryStore.query.all()
-    all_stores_titles = ', '.join([store.title for store in all_stores])
-    print(f"All store titles: {all_stores_titles}")
-    return render_template('home.html', all_stores=all_stores)
+    all_fabrics = Fabric.query.all()
+    all_fabrics_names = ', '.join([fabric.title for fabric in all_fabrics])
+    print(f"All fabric names: {all_fabrics_names}")
+    return render_template('home.html', all_fabrics=all_fabrics)
 
 
-@main.route('/new_store', methods=['GET', 'POST'])
-def new_store():
-    # Create a GroceryStoreForm
-    form = GroceryStoreForm()
+@main.route('/new_fabric', methods=['GET', 'POST'])
+def new_fabric():
+    # Create a FabricForm
+    form = FabricForm()
 
     # If form was submitted and was valid:
     if form.validate_on_submit():
-        # create a new GroceryStore object and save it to the database
-        new_store = GroceryStore(
+        # create a new Fabric object and save it to the database
+        new_fabric = Fabric(
             title=form.title.data,
             address=form.address.data
         )
-        db.session.add(new_store)
+        db.session.add(new_fabric)
         db.session.commit()
 
         # flash a success message, and
-        # redirect the user to the store detail page.
-        flash('New store was created successfully!')
-        return redirect(url_for('main.store_detail', store_id=new_store.id))
+        # redirect the user to the fabric detail page.
+        flash('New fabric was created successfully!')
+        return redirect(url_for('main.store_detail', store_id=new_fabric.id))
     # Send the form to the template and use it to render the form fields
-    return render_template('new_store.html', form=form)
+    return render_template('new_fabric.html', form=form)
 
 
-@main.route('/new_item', methods=['GET', 'POST'])
-def new_item():
-    # Create a GroceryItemForm
-    form = GroceryItemForm()
+@main.route('/new_pattern', methods=['GET', 'POST'])
+def new_pattern():
+    # Create a PatternForm
+    form = PatternForm()
 
     # If form was submitted and was valid:
-    # - create a new GroceryItem object and save it to the database,
+    # - create a new Pattern object and save it to the database,
     # - flash a success message, and
-    # - redirect the user to the item detail page.
+    # - redirect the user to the pattern detail page.
     if form.validate_on_submit():
-        new_item = GroceryItem(
+        new_pattern = Pattern(
             name=form.name.data,
             price=form.price.data,
             category=form.category.data,
             photo_url=form.photo_url.data,
-            store=form.store.data
+            fabric=form.fabric.data
         )
-        db.session.add(new_item)
+        db.session.add(new_pattern)
         db.session.commit()
 
-        flash('New item was created successfully!')
-        return redirect(url_for('main.item_detail', item_id=new_item.id))
+        flash('New pattern was created successfully!')
+        return redirect(url_for('main.item_detail', item_id=new_pattern.id))
 
     # Send the form to the template and use it to render the form fields
-    return render_template('new_item.html', form=form)
+    return render_template('new_pattern.html', form=form)
 
 
-@main.route('/store/<store_id>', methods=['GET', 'POST'])
+@main.route('/fabric/<store_id>', methods=['GET', 'POST'])
 def store_detail(store_id):
-    store = GroceryStore.query.get(store_id)
-    # Create a GroceryStoreForm and pass in `obj=store`
-    form = GroceryStoreForm(obj=store)
+    fabric = Fabric.query.get(store_id)
+    # Create a FabricForm and pass in `obj=fabric`
+    form = FabricForm(obj=fabric)
 
     # If form was submitted and was valid:
-    # - update the GroceryStore object and save it to the database,
+    # - update the Fabric object and save it to the database,
     # - flash a success message, and
-    # - redirect the user to the store detail page.
+    # - redirect the user to the fabric detail page.
     if form.validate_on_submit():
-        form.populate_obj(store)
+        form.populate_obj(fabric)
         db.session.commit()
 
         flash('Store was updated successfully!')
-        return redirect(url_for('main.store_detail', store_id=store.id))
+        return redirect(url_for('main.store_detail', store_id=fabric.id))
 
     # Send the form to the template and use it to render the form fields
-    store = GroceryStore.query.get(store_id)
-    return render_template('store_detail.html', store=store, form=form)
+    fabric = Fabric.query.get(store_id)
+    return render_template('store_detail.html', fabric=fabric, form=form)
 
 
-@main.route('/item/<item_id>', methods=['GET', 'POST'])
+@main.route('/pattern/<item_id>', methods=['GET', 'POST'])
 def item_detail(item_id):
-    item = GroceryItem.query.get(item_id)
-    # Create a GroceryItemForm and pass in `obj=item`
-    form = GroceryItemForm(obj=item)
+    pattern = Pattern.query.get(item_id)
+    # Create a PatternForm and pass in `obj=pattern`
+    form = PatternForm(obj=pattern)
 
     # If form was submitted and was valid:
-    # - update the GroceryItem object and save it to the database,
+    # - update the Pattern object and save it to the database,
     # - flash a success message, and
-    # - redirect the user to the item detail page.
+    # - redirect the user to the pattern detail page.
     if form.validate_on_submit():
-        form.populate_obj(item)
+        form.populate_obj(pattern)
         db.session.commit()
 
         flash('Item was updated successfully!')
-        return redirect(url_for('main.item_detail', item_id=item.id))
+        return redirect(url_for('main.item_detail', item_id=pattern.id))
 
     # Send the form to the template and use it to render the form fields
-    item = GroceryItem.query.get(item_id)
-    return render_template('item_detail.html', item=item, form=form)
+    pattern = Pattern.query.get(item_id)
+    return render_template('item_detail.html', pattern=pattern, form=form)

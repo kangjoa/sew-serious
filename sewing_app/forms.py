@@ -2,11 +2,11 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, SelectField, SubmitField, FloatField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField, QuerySelectMultipleField
 from wtforms.validators import DataRequired, Length, URL
-from sewing_app.models import ItemCategory, GroceryStore, GroceryItem
+from sewing_app.models import PatternCategory, Fabric, Pattern
 
 
 class GroceryStoreForm(FlaskForm):
-    """Form for adding/updating a GroceryStore."""
+    """Form for adding/updating a Fabric."""
 
     title = StringField('Grocery Store Title', validators=[DataRequired(),
                                                            Length(min=2, max=80,
@@ -17,7 +17,7 @@ class GroceryStoreForm(FlaskForm):
 
 
 class GroceryItemForm(FlaskForm):
-    """Form for adding/updating a GroceryItem."""
+    """Form for adding/updating a Pattern."""
 
     name = StringField('Grocery Item name', validators=[DataRequired(), Length(
         min=2, max=100, message="Your message needs to be between 2 and 100 characters")])
@@ -25,13 +25,13 @@ class GroceryItemForm(FlaskForm):
         DataRequired(message="Price is required (no letters)")
     ])
     category = SelectField('Grocery Item category',
-                           choices=ItemCategory.choices())
+                           choices=PatternCategory.choices())
     photo_url = StringField('Grocery Item photo url', validators=[DataRequired(), Length(
         min=5, max=1000, message="Your message needs to be between 5 and 1000 characters")])
 
     def grocery_store_query():
         """Retrieve all grocery stores from the database."""
-        return GroceryStore.query.all()
+        return Fabric.query.all()
 
     # Assign the grocery_store_query function to the query_factory param of the QuerySelectField
     store = QuerySelectField('Grocery Item store',
