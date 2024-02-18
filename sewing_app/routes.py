@@ -66,13 +66,14 @@ def new_pattern():
         for fabric_id in fabrics:
             fabric = Fabric.query.get(fabric_id)
             new_pattern.fabrics.append(fabric)
-            if fabric:
-                new_pattern.fabrics.append(fabric)
+
+        print(f"fabrics data: {form.fabrics.data}")
+        print(type(form.fabrics.data))
 
         db.session.add(new_pattern)
         db.session.commit()
 
-        flash('New pattern was created successfully!')
+        flash(f'New pattern "{new_pattern.name}" was created successfully!')
         return redirect(url_for('main.pattern_detail', pattern_id=new_pattern.id))
 
     # Send the form to the template and use it to render the form fields
