@@ -2,10 +2,11 @@
 {% block content %}
 
 <h1>Fabric - {{ fabric.name }}</h1>
-
-<strong>Color:</strong> {{ fabric.color }}
-<strong>Quantity:</strong> {{ fabric.quantity }}
-
+<ul>
+    <li><strong>Color:</strong> {{ fabric.color }}</li>
+    <li><strong>Quantity:</strong> {{ fabric.quantity }} yds</li>
+</ul>
+<img class="fabric-photo" src="{{ fabric.photo_url }}" alt="Fabric Photo">
 <h2>Items</h2>
 
 <div class="items">
