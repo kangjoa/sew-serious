@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Grocery Store Tracker</h1>
+<h1>Sewing App</h1>
 
-<p><em>The best place to track prices and find the hottest deals!</em></p>
+<p><em>Keep track of your fabrics and patterns.</em></p>
 
-<h2>All Stores</h2>
+<h2>All Fabrics</h2>
 
-{% for store in all_stores %}
-<div class="store">
-    <a href="/store/{{ store.id }}">{{ store.title }}</a> - 
-    {{ store.items|length }} items
-    <p><strong>Address:</strong> {{ store.address }}</p>
+{% for fabric in all_fabrics %}
+<div class="fabric">
+    <a href="/fabric/{{ fabric.id }}">{{ fabric.name }}</a> -
+    {{ fabric.items|length }} items
+    <p><strong>Color:</strong> {{ fabric.color }}</p>
 </div>
 {% endfor %}
 

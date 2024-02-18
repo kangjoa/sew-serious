@@ -1,6 +1,6 @@
-# Homework 3: Grocery Store
+# Homework 3: Grocery Fabric
 
-_For instructions on how to complete this assignment, see [part 1](https://github.com/Tech-at-DU/ACS-1220-Authentication-and-Associations/blob/master/Assignments/grocery-store.md) and [part 2](https://github.com/Tech-at-DU/ACS-1220-Authentication-and-Associations/blob/master/Assignments/grocery-store-part-2.md)._
+_For instructions on how to complete this assignment, see [part 1](https://github.com/Tech-at-DU/ACS-1220-Authentication-and-Associations/blob/master/Assignments/grocery-fabric.md) and [part 2](https://github.com/Tech-at-DU/ACS-1220-Authentication-and-Associations/blob/master/Assignments/grocery-fabric-part-2.md)._
 
 To run this code, start by cloning this repository to your computer. Then in a terminal, navigate to the project folder.
 

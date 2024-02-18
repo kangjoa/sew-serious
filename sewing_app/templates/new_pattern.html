@@ -1,36 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>New Store</h1>
+<h1>New Pattern</h1>
 
-<form method="POST" action="{{ url_for('main.new_store')}}">
+<form method="POST" action="{{ url_for('main.new_pattern') }}">
     {{ form.csrf_token }}
     <fieldset>
         <legend>Please enter your information:</legend>
 
-        {{ form.title.label }}
-        {{ form.title }}
+        {{ form.name.label }}
+        {{ form.name }}
 
-        {% if form.title.errors %}
+        {% if form.name.errors %}
         <ul>
-            {% for error in form.title.errors %}
+            {% for error in form.name.errors %}
             <li class="error">{{ error }}</li>
             {% endfor %}
         </ul>
         {% endif %}
 
-        {{ form.address.label }}
-        {{ form.address }}
+        {{ form.category.label }}
+        {{ form.category }}
 
-        {% if form.address.errors %}
+        {% if form.category.errors %}
         <ul>
-            {% for error in form.address.errors %}
+            {% for error in form.category.errors %}
             <li class="error">{{ error }}</li>
             {% endfor %}
         </ul>
         {% endif %}
 
-        <!-- submit the form -->
         {{ form.submit }}
     </fieldset>
 </form>

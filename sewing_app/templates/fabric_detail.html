@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Fabric - {{ fabric.name }}</h1>
+
+<strong>Color:</strong> {{ fabric.color }}
+<strong>Quantity:</strong> {{ fabric.quantity }}
+
+<h2>Items</h2>
+
+<div class="items">
+    {% for pattern in fabric.items %}
+    <div class="pattern-details">
+        <a href="/pattern/{{ pattern.id }}"><img src="{{ fabric.photo_url }}" alt="{{ pattern.name }}" width="200px">
+            <p><strong>{{ pattern.name }}</strong></p>
+        </a>
+        <p><strong>{{ pattern.category }}</strong></p>
+    </div>
+    {% endfor %}
+</div>
+
+
+<h2>Edit Fabric</h2>
+
+<form method="POST" action="{{ url_for('main.fabric_detail', store_id = fabric.id) }}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Please enter your information:</legend>
+
+        {{ form.name.label }}
+        {{ form.name }}
+
+        {% if form.name.errors %}
+        <ul>
+            {% for error in form.name.errors %}
+            <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {{ form.color.label }}
+        {{ form.color }}
+
+        {% if form.color.errors %}
+        <ul>
+            {% for error in form.color.errors %}
+            <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {{ form.quantity.label }}
+        {{ form.quantity }}
+
+        {% if form.quantity.errors %}
+        <ul>
+            {% for error in form.quantity.errors %}
+            <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {{ form.photo_url.label }}
+        {{ form.photo_url }}
+
+        {% if form.photo_url.errors %}
+        <ul>
+            {% for error in form.photo_url.errors %}
+            <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {{ form.submit}}
+    </fieldset>
+</form>
+
+{% endblock %}

@@ -1,20 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Item - {{ item.name }}</h1>
+<h1>Pattern - {{ pattern.name }}</h1>
 
-<p><img src="{{ item.photo_url }}" width="250px" height="250px"></p>
+<p><img src="{{ pattern.photo_url }}" width="250px" height="250px"></p>
 
-<p><strong>Price:</strong> ${{ "{:.2f}".format(item.price) }}</p>
+<p><strong>Price:</strong> ${{ "{:.2f}".format(pattern.price) }}</p>
 
-<p><strong>Category:</strong> {{ item.category }}</p>
+<p><strong>Category:</strong> {{ pattern.category }}</p>
 
-<p><strong>Store:</strong> {{ item.store.title }}</p>
+<p><strong>Fabric:</strong> {{ pattern.fabric.name }}</p>
 
+<p><strong>Quantity:</strong> {{ pattern.quantity }}</p>
 
-<h2>Edit Item</h2>
+<p><strong>Photo URL:</strong> {{ pattern.photo_url }}</p>
 
-<form method="POST" action="{{ url_for('main.item_detail', item_id=item.id) }}">
+<h2>Edit Pattern</h2>
+
+<form method="POST" action="{{ url_for('main.pattern_detail', item_id=pattern.id) }}">
     {{ form.csrf_token }}
     <fieldset>
         <legend>Please enter your information:</legend>
@@ -30,16 +33,6 @@
         </ul>
         {% endif %}
 
-        {{ form.price.label }}
-        {{ form.price }}
-
-        {% if form.price.errors %}
-        <ul>
-            {% for error in form.price.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
 
         {{ form.category.label }}
         {{ form.category }}
@@ -63,12 +56,12 @@
         </ul>
         {% endif %}
 
-        {{ form.store.label }}
-        {{ form.store }}
+        {{ form.fabric.label }}
+        {{ form.fabric }}
 
-        {% if form.store.errors %}
+        {% if form.fabric.errors %}
         <ul>
-            {% for error in form.store.errors %}
+            {% for error in form.fabric.errors %}
             <li class="error">{{ error }}</li>
             {% endfor %}
         </ul>
