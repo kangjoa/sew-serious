@@ -42,7 +42,8 @@ def new_fabric():
             name=form.name.data,
             color=form.color.data,
             quantity=form.quantity.data,
-            photo_url=form.photo_url.data
+            photo_url=form.photo_url.data,
+            created_by=current_user
         )
         db.session.add(new_fabric)
         db.session.commit()
@@ -75,7 +76,8 @@ def new_pattern():
             name=form.name.data,
             category=form.category.data,
             photo_url=form.photo_url.data,
-            fabrics=fabrics
+            fabrics=fabrics,
+            created_by=current_user
         )
 
         db.session.add(new_pattern)

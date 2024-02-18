@@ -7,11 +7,11 @@
 <div class="pattern">
     <a href="/pattern/{{ pattern.id }}">{{ pattern.name }}</a> -
     {% if pattern.fabrics|length == 0 %}
-    0 fabrics - not tagged yet!
+    <strong>0 fabrics</strong> - not tagged yet!
     {% elif pattern.fabrics|length == 1 %}
-    {{ pattern.fabrics|length }} fabric tagged with this pattern
+    <strong>{{ pattern.fabrics|length }} fabric</strong> tagged with this pattern
     {% else %}
-    {{ pattern.fabrics|length }} fabrics tagged with this pattern
+    <strong>{{ pattern.fabrics|length }} fabrics</strong> tagged with this pattern
     {% endif %}
     <p><strong>Category:</strong> {{ pattern.category }}</p>
     <img class="pattern-photo" src="{{ pattern.photo_url }}" alt="Pattern Photo">
