@@ -30,6 +30,7 @@ class PatternForm(FlaskForm):
 
     category = SelectField('Pattern Category',
                            choices=PatternCategory.choices())
+
     photo_url = StringField('Sewing Pattern photo url', validators=[DataRequired(), Length(
         min=5, max=1000, message="Your message needs to be between 5 and 1000 characters")])
 
@@ -37,7 +38,7 @@ class PatternForm(FlaskForm):
         """Retrieve all fabrics from the database."""
         return Fabric.query.all()
 
-    # Assign the fabric_query function to the query_factory param of the QuerySelectField
-    fabric = QuerySelectField('Fabrics for patterns',
-                              query_factory=fabric_query, get_label='name')
+    # Assign the fabric_query function to the query_factory param of the QuerySelectMultipleField
+    fabrics = QuerySelectMultipleField('Fabrics for patterns',
+                                       query_factory=fabric_query, get_label='name', allow_blank=True)
     submit = SubmitField('Submit')
