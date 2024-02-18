@@ -23,7 +23,7 @@
 
 <h2>Edit Fabric</h2>
 
-<form method="POST" action="{{ url_for('main.fabric_detail', store_id = fabric.id) }}">
+<form method="POST" action="{{ url_for('main.fabric_detail', fabric_id = fabric.id) }}">
     {{ form.csrf_token }}
     <fieldset>
         <legend>Please enter your information:</legend>
