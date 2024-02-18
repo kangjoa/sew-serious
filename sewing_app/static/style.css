@@ -1,7 +1,7 @@
 :root {
-  --primary-color: #11829c;
-  --secondary-color: #6c757d;
-  --accent-color: #28a745;
+  --primary-color: #006466;
+  --secondary-color: #3e1f47;
+  --accent-color: #654c6c;
 }
 
 /* Body styles */
@@ -38,6 +38,16 @@ nav a {
   font-size: 1.2em;
   border: 1px solid #ced4da;
   padding: 5px;
+}
+
+@media (max-width: 750px) {
+  nav {
+    flex-direction: column;
+  }
+  nav a {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 }
 
 nav a:hover {
@@ -122,4 +132,8 @@ div.pattern-details {
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   margin-bottom: 10px;
+}
+
+a.patterns-list {
+  background-color: var(--accent-color);
 }

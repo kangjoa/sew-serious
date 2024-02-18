@@ -42,7 +42,8 @@ def new_fabric():
             name=form.name.data,
             color=form.color.data,
             quantity=form.quantity.data,
-            photo_url=form.photo_url.data
+            photo_url=form.photo_url.data,
+            created_by=current_user
         )
         db.session.add(new_fabric)
         db.session.commit()
@@ -75,7 +76,8 @@ def new_pattern():
             name=form.name.data,
             category=form.category.data,
             photo_url=form.photo_url.data,
-            fabrics=fabrics
+            fabrics=fabrics,
+            created_by=current_user
         )
 
         db.session.add(new_pattern)
@@ -132,6 +134,36 @@ def pattern_detail(pattern_id):
     # Send the form to the template and use it to render the form fields
     pattern = Pattern.query.get(pattern_id)
     return render_template('pattern_detail.html', pattern=pattern, form=form)
+
+
+@main.route('/add_to_patterns_list/<pattern_id>', methods=['POST'])
+@login_required
+def add_to_patterns_list(pattern_id):
+    """Add a pattern to the logged in user's patterns list."""
+    pattern = Pattern.query.get(pattern_id)
+    current_user.patterns_list_items.append(pattern)
+    db.session.commit()
+    flash(f'Pattern "{pattern.name}" was added to your patterns list!')
+    return redirect(url_for('main.patterns_list'))
+
+
+@main.route('/remove_from_patterns_list/<pattern_id>', methods=['POST'])
+@login_required
+def remove_from_patterns_list(pattern_id):
+    """Remove a pattern from the logged in user's patterns list."""
+    pattern = Pattern.query.get(pattern_id)
+    current_user.patterns_list_items.remove(pattern)
+    db.session.commit()
+    flash(f'Pattern "{pattern.name}" was removed from your patterns list!')
+    return redirect(url_for('main.patterns_list'))
+
+
+@main.route('/patterns_list')
+@login_required
+def patterns_list():
+    """Get logged in user's patterns list and display in a template."""
+    patterns_list = current_user.patterns_list_items
+    return render_template('patterns_list.html', patterns_list=patterns_list)
 
 
 @auth.route('/signup', methods=['GET', 'POST'])

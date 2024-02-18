@@ -2,6 +2,29 @@
 {% block content %}
 
 <h1>Pattern - {{ pattern.name }}</h1>
+<img src="{{ pattern.photo_url }}" width="250px" height="250px">
+<ul>
+    <li><strong>Name</strong> {{ pattern.name }}</li>
+    <li><strong>Category:</strong> {{ pattern.category }}</li>
+    <li><strong>Created by:</strong> {{ pattern.created_by.username }}</li>
+    <li><strong>Tagged fabrics for this pattern:</strong>
+        {% if pattern.fabrics %}
+        <ul>
+            {% for fabric in pattern.fabrics %}
+            <li>
+                <a href="{{ url_for('main.fabric_detail', fabric_id=fabric.id) }}">{{ fabric.name }}</a>
+            </li>
+            {% endfor %}
+            {% else %}
+            <p>No fabrics tagged yet.</p>
+            {% endif %}
+        </ul>
+</ul>
+
+<form action="{{ url_for('main.add_to_patterns_list', pattern_id=pattern.id) }}" method="POST">
+    {{ form.csrf_token }}
+    <button type="submit" class="btn-add-to-list">Add to Patterns List</button>
+</form>
 
 <h2>Edit Pattern</h2>
 
