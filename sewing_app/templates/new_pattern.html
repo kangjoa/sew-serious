@@ -1,20 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Item - {{ item.name }}</h1>
+<h1>New Pattern</h1>
 
-<p><img src="{{ item.photo_url }}" width="250px" height="250px"></p>
-
-<p><strong>Price:</strong> ${{ "{:.2f}".format(item.price) }}</p>
-
-<p><strong>Category:</strong> {{ item.category }}</p>
-
-<p><strong>Store:</strong> {{ item.store.title }}</p>
-
-
-<h2>Edit Item</h2>
-
-<form method="POST" action="{{ url_for('main.item_detail', item_id=item.id) }}">
+<form method="POST" action="{{ url_for('main.new_pattern') }}">
     {{ form.csrf_token }}
     <fieldset>
         <legend>Please enter your information:</legend>
@@ -25,17 +14,6 @@
         {% if form.name.errors %}
         <ul>
             {% for error in form.name.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-
-        {{ form.price.label }}
-        {{ form.price }}
-
-        {% if form.price.errors %}
-        <ul>
-            {% for error in form.price.errors %}
             <li class="error">{{ error }}</li>
             {% endfor %}
         </ul>
@@ -52,6 +30,18 @@
         </ul>
         {% endif %}
 
+        {{ form.fabric.label }}
+        {{ form.fabric }}
+
+        {% if form.fabric.errors %}
+        <ul>
+            {% for error in form.fabric.errors %}
+            <li class="error">{{ error }}</li>
+            {% endfor %}
+            {{ form.submit }}
+        </ul>
+        {% endif %}
+
         {{ form.photo_url.label }}
         {{ form.photo_url }}
 
@@ -63,19 +53,9 @@
         </ul>
         {% endif %}
 
-        {{ form.store.label }}
-        {{ form.store }}
-
-        {% if form.store.errors %}
-        <ul>
-            {% for error in form.store.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-
         {{ form.submit }}
     </fieldset>
 </form>
+
 
 {% endblock %}

@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>New Item</h1>
+<h1>New Fabric</h1>
 
-<form method="POST" action="{{ url_for('main.new_item') }}">
+<form method="POST" action="{{ url_for('main.new_fabric')}}">
     {{ form.csrf_token }}
     <fieldset>
         <legend>Please enter your information:</legend>
@@ -19,23 +19,23 @@
         </ul>
         {% endif %}
 
-        {{ form.price.label }}
-        {{ form.price }}
+        {{ form.color.label }}
+        {{ form.color }}
 
-        {% if form.price.errors %}
+        {% if form.color.errors %}
         <ul>
-            {% for error in form.price.errors %}
+            {% for error in form.color.errors %}
             <li class="error">{{ error }}</li>
             {% endfor %}
         </ul>
         {% endif %}
 
-        {{ form.category.label }}
-        {{ form.category }}
+        {{ form.quantity.label }}
+        {{ form.quantity }}
 
-        {% if form.category.errors %}
+        {% if form.quantity.errors %}
         <ul>
-            {% for error in form.category.errors %}
+            {% for error in form.quantity.errors %}
             <li class="error">{{ error }}</li>
             {% endfor %}
         </ul>
@@ -52,17 +52,7 @@
         </ul>
         {% endif %}
 
-        {{ form.store.label }}
-        {{ form.store }}
-
-        {% if form.store.errors %}
-        <ul>
-            {% for error in form.store.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-
+        <!-- submit the form -->
         {{ form.submit }}
     </fieldset>
 </form>
