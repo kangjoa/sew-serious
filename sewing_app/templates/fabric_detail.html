@@ -8,6 +8,11 @@
     <li><strong>Created By:</strong> {{ fabric.created_by.username }}</li>
 </ul>
 <img class="fabric-photo" src="{{ fabric.photo_url }}" alt="Fabric Photo">
+<form action="{{ url_for('main.add_to_fabrics_list', fabric_id=fabric.id) }}" method="POST">
+    {{ form.csrf_token }}
+    <button type="submit" class="btn-add-to-list">Add to Fabrics List</button>
+</form>
+
 <h2>Sewing Patterns for this Fabric</h2>
 {% if fabric.patterns|length == 0 %}
 <p>No patterns tagged yet.</p>

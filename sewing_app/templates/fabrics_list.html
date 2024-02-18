@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Fabrics List</h1>
+
+{% if fabrics_list %}
+<ul class="fabrics-list">
+  {% for fabric in fabrics_list %}
+  <li class="fabrics-item">
+    <a href="{{ url_for('main.fabric_detail', fabric_id=fabric.id) }}">
+      {{ fabric.name }}
+      <form action="{{ url_for('main.remove_from_fabrics_list', fabric_id=fabric.id) }}" method="POST">
+        {{ csrf_token }}
+        <button type="submit" class="btn-remove-from-list">Remove from Fabrics List</button>
+      </form>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Your fabrics list is empty.</p>
+{% endif %}
+
+{% endblock %}

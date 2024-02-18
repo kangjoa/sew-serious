@@ -14,7 +14,7 @@ body {
 }
 
 #content {
-  width: 70%;
+  width: 85%;
   background-color: white;
   padding: 20px;
   margin-top: 20px;
@@ -134,6 +134,7 @@ div.pattern-details {
   margin-bottom: 10px;
 }
 
-a.patterns-list {
+a.patterns-list,
+a.fabrics-list {
   background-color: var(--accent-color);
 }

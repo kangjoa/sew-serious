@@ -4,6 +4,9 @@
 <h1>View all patterns </h1>
 
 {% for pattern in all_patterns %}
+{% if pattern.fabrics|length == 0 %}
+<p><strong>{{ pattern.name }}</strong> - not tagged yet!</p>
+{% else %}
 <div class="pattern">
     <a href="/pattern/{{ pattern.id }}">{{ pattern.name }}</a> -
     {% if pattern.fabrics|length == 0 %}
@@ -16,6 +19,7 @@
     <p><strong>Category:</strong> {{ pattern.category }}</p>
     <img class="pattern-photo" src="{{ pattern.photo_url }}" alt="Pattern Photo">
 </div>
+{% endif %}
 {% endfor %}
 
 {% endblock %}
