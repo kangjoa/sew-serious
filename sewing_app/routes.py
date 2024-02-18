@@ -30,6 +30,7 @@ def patterns():
 
 
 @main.route('/new_fabric', methods=['GET', 'POST'])
+@login_required
 def new_fabric():
     # Create a FabricForm
     form = FabricForm()
@@ -55,6 +56,7 @@ def new_fabric():
 
 
 @main.route('/new_pattern', methods=['GET', 'POST'])
+@login_required
 def new_pattern():
     # Create a PatternForm
     form = PatternForm()
@@ -87,6 +89,7 @@ def new_pattern():
 
 
 @main.route('/fabric/<fabric_id>', methods=['GET', 'POST'])
+@login_required
 def fabric_detail(fabric_id):
     fabric = Fabric.query.get(fabric_id)
     # Create a FabricForm and pass in `obj=fabric`
@@ -109,6 +112,7 @@ def fabric_detail(fabric_id):
 
 
 @main.route('/pattern/<pattern_id>', methods=['GET', 'POST'])
+@login_required
 def pattern_detail(pattern_id):
     pattern = Pattern.query.get(pattern_id)
     # Create a PatternForm and pass in `obj=pattern`
@@ -159,6 +163,7 @@ def login():
 
 
 @auth.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('main.homepage'))
