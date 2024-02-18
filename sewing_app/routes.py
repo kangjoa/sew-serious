@@ -166,6 +166,36 @@ def patterns_list():
     return render_template('patterns_list.html', patterns_list=patterns_list)
 
 
+@main.route('/add_to_fabrics_list/<fabric_id>', methods=['POST'])
+@login_required
+def add_to_fabrics_list(fabric_id):
+    """Add a fabric to the logged in user's fabrics list."""
+    fabric = Fabric.query.get(fabric_id)
+    current_user.fabrics_list_items.append(fabric)
+    db.session.commit()
+    flash(f'Fabric "{fabric.name}" was added to your fabrics list!')
+    return redirect(url_for('main.fabrics_list'))
+
+
+@main.route('/remove_from_fabrics_list/<fabric_id>', methods=['POST'])
+@login_required
+def remove_from_fabrics_list(fabric_id):
+    """Remove a fabric from the logged in user's fabrics list."""
+    fabric = Fabric.query.get(fabric_id)
+    current_user.fabrics_list_items.remove(fabric)
+    db.session.commit()
+    flash(f'Fabric "{fabric.name}" was removed from your fabrics list!')
+    return redirect(url_for('main.fabrics_list'))
+
+
+@main.route('/fabrics_list')
+@login_required
+def fabrics_list():
+    """Get logged in user's fabrics list and display in a template."""
+    fabrics_list = current_user.fabrics_list_items
+    return render_template('fabrics_list.html', fabrics_list=fabrics_list)
+
+
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignUpForm()

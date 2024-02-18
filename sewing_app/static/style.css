@@ -134,6 +134,7 @@ div.pattern-details {
   margin-bottom: 10px;
 }
 
-a.patterns-list {
+a.patterns-list,
+a.fabrics-list {
   background-color: var(--accent-color);
 }

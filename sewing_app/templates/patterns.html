@@ -2,7 +2,9 @@
 {% block content %}
 
 <h1>View all patterns </h1>
-
+{% if patterns|length == 0 %}
+<p>No patterns yet.</p>
+{% else %}
 {% for pattern in all_patterns %}
 <div class="pattern">
     <a href="/pattern/{{ pattern.id }}">{{ pattern.name }}</a> -
@@ -17,5 +19,5 @@
     <img class="pattern-photo" src="{{ pattern.photo_url }}" alt="Pattern Photo">
 </div>
 {% endfor %}
-
+{% endif %}
 {% endblock %}

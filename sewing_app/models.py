@@ -20,6 +20,10 @@ patterns_list = db.Table('patterns_list',
                                    db.ForeignKey('pattern.id'))
                          )
 
+# Bridge table between users and fabrics, users-fabrics many-to-many relationship
+fabrics_list = db.Table('fabrics_list', db.Column('user_id', db.Integer, db.ForeignKey(
+    'user.id')), db.Column('fabric_id', db.Integer, db.ForeignKey('fabric.id')))
+
 
 class PatternCategory(FormEnum):
     """Categories of sewing patterns."""
@@ -41,6 +45,8 @@ class Fabric(db.Model):
         'Pattern', secondary=fabrics_patterns, back_populates='fabrics')
     created_by_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created_by = db.relationship('User')
+    users = db.relationship('User', secondary=fabrics_list,
+                            back_populates='fabrics_list_items')
 
 
 class Pattern(db.Model):
@@ -67,3 +73,5 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(80), nullable=False)
     patterns_list_items = db.relationship(
         'Pattern', secondary=patterns_list, back_populates='users')
+    fabrics_list_items = db.relationship(
+        'Fabric', secondary=fabrics_list, back_populates='users')
