@@ -5,55 +5,7 @@
 
 <form method="POST" action="{{ url_for('main.new_pattern') }}">
     {{ form.csrf_token }}
-    <fieldset>
-        <legend>Please enter your information:</legend>
-
-        {{ form.name.label }}
-        {{ form.name }}
-
-        {% if form.name.errors %}
-        <ul>
-            {% for error in form.name.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-
-        {{ form.category.label }}
-        {{ form.category }}
-
-        {% if form.category.errors %}
-        <ul>
-            {% for error in form.category.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-
-        {{ form.fabrics.label }}
-        {{ form.fabrics(class="form-control", multiple="multiple") }}
-
-        {% if form.fabrics.errors %}
-        <ul>
-            {% for error in form.fabrics.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-
-        {{ form.photo_url.label }}
-        {{ form.photo_url }}
-
-        {% if form.photo_url.errors %}
-        <ul>
-            {% for error in form.photo_url.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-
-        {{ form.submit }}
-    </fieldset>
+    {% include '_pattern_detail.html' %}
 </form>
 
 {% endblock %}
