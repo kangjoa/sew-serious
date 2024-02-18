@@ -10,7 +10,13 @@
 {% for fabric in all_fabrics %}
 <div class="fabric">
     <a href="/fabric/{{ fabric.id }}">{{ fabric.name }}</a> -
-    {{ fabric.patterns|length }} {{ "pattern" if fabric.patterns|length == 1 else "patterns" }}
+    {% if fabric.patterns|length == 0 %}
+    <strong>0 patterns</strong> - not tagged yet!
+    {% elif fabric.patterns|length == 1 %}
+    <strong>1 pattern</strong> has been tagged with this fabric
+    {% else %}
+    <strong>{{ fabric.patterns|length }} patterns</strong> have been tagged with this fabric
+    {% endif %}
     <p><strong>Color:</strong> {{ fabric.color }}</p>
     <p><strong>Quantity:</strong> {{ fabric.quantity }} yds</p>
     <img class="fabric-photo" src="{{ fabric.photo_url }}" alt="Fabric Photo">
