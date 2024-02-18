@@ -22,6 +22,7 @@
                 {% if current_user.is_authenticated %}
                 <a href="/new_fabric">New Fabric</a>
                 <a href="/new_pattern">New Pattern</a>
+                <a class="patterns-list" href="/patterns_list">{{ current_user.username }}'s Patterns List</a>
             </div>
             <div>
                 <a href="{{ url_for('auth.logout') }}">Logout</a>
