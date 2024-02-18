@@ -6,7 +6,13 @@
 {% for pattern in all_patterns %}
 <div class="pattern">
     <a href="/pattern/{{ pattern.id }}">{{ pattern.name }}</a> -
-    {{ pattern.fabrics|length }} {{ "fabric" if pattern.fabrics|length == 1 else "fabrics" }}
+    {% if pattern.fabrics|length == 0 %}
+    0 fabrics - not tagged yet!
+    {% elif pattern.fabrics|length == 1 %}
+    {{ pattern.fabrics|length }} fabric tagged with this pattern
+    {% else %}
+    {{ pattern.fabrics|length }} fabrics tagged with this pattern
+    {% endif %}
     <p><strong>Category:</strong> {{ pattern.category }}</p>
     <img class="pattern-photo" src="{{ pattern.photo_url }}" alt="Pattern Photo">
 </div>
