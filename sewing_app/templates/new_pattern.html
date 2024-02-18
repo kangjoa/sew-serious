@@ -31,11 +31,7 @@
         {% endif %}
 
         {{ form.fabrics.label }}
-        <select name="fabrics" multiple="multiple">
-            {% for fabric in form.fabrics %}
-            <option value="{{ fabric.id }}">{{ fabric.name }}</option>
-            {% endfor %}
-        </select>
+        {{ form.fabrics(class="form-control", multiple="multiple") }}
 
         {% if form.fabrics.errors %}
         <ul>

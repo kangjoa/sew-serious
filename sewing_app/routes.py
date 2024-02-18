@@ -56,19 +56,23 @@ def new_pattern():
     # - flash a success message, and
     # - redirect the user to the pattern detail page.
     if form.validate_on_submit():
+        # Extract fabric IDs from form data
+        # Assuming form.fabrics.data contains Fabric objects
+        fabric_ids = [fabric.id for fabric in form.fabrics.data]
+
+        # Retrieve Fabric objects based on extracted IDs
+        fabrics = [Fabric.query.get(id) for id in fabric_ids]
         new_pattern = Pattern(
             name=form.name.data,
             category=form.category.data,
             photo_url=form.photo_url.data,
+            fabrics=fabrics
         )
 
-        fabrics = form.fabrics.data
-        for fabric_id in fabrics:
-            fabric = Fabric.query.get(fabric_id)
-            new_pattern.fabrics.append(fabric)
-
-        print(f"fabrics data: {form.fabrics.data}")
-        print(type(form.fabrics.data))
+        # for fabric_id in fabrics:
+        #     fabric = Fabric.query.get(fabric_id)
+        #     if fabric:
+        #         new_pattern.fabrics.append(fabric)
 
         db.session.add(new_pattern)
         db.session.commit()
