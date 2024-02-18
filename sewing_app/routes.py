@@ -145,6 +145,17 @@ def add_to_patterns_list(pattern_id):
     return redirect(url_for('main.patterns_list'))
 
 
+@main.route('/remove_from_patterns_list/<pattern_id>', methods=['POST'])
+@login_required
+def remove_from_patterns_list(pattern_id):
+    """Remove a pattern from the logged in user's patterns list."""
+    pattern = Pattern.query.get(pattern_id)
+    current_user.patterns_list_items.remove(pattern)
+    db.session.commit()
+    flash(f'Pattern "{pattern.name}" was removed from your patterns list!')
+    return redirect(url_for('main.patterns_list'))
+
+
 @main.route('/patterns_list')
 @login_required
 def patterns_list():
