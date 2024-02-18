@@ -35,6 +35,10 @@ def new_fabric():
             quantity=form.quantity.data,
             photo_url=form.photo_url.data
         )
+
+        for pattern in form.patterns.data:
+            fabric.patterns.append(pattern)
+
         db.session.add(new_fabric)
         db.session.commit()
 
