@@ -1,4 +1,5 @@
 from sqlalchemy_utils import URLType
+from flask_login import UserMixin
 
 from sewing_app.extensions import db
 from sewing_app.utils import FormEnum
@@ -30,6 +31,8 @@ class Fabric(db.Model):
     photo_url = db.Column(URLType)
     patterns = db.relationship(
         'Pattern', secondary=fabrics_patterns, back_populates='fabrics')
+    created_by_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    created_by = db.relationship('User')
 
 
 class Pattern(db.Model):
@@ -43,3 +46,12 @@ class Pattern(db.Model):
     #     db.Integer, db.ForeignKey('fabric.id'), nullable=False)
     fabrics = db.relationship(
         'Fabric', secondary=fabrics_patterns, back_populates='patterns')
+    created_by_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    created_by = db.relationship('User')
+
+
+class User(UserMixin, db.Model):
+    """User model."""
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), nullable=False, unique=True)
+    password = db.Column(db.String(80), nullable=False)
