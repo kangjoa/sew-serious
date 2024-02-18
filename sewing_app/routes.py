@@ -21,6 +21,12 @@ def homepage():
     return render_template('home.html', all_fabrics=all_fabrics)
 
 
+@main.route('/patterns')
+def patterns():
+    all_patterns = Pattern.query.all()
+    return render_template('patterns.html', all_patterns=all_patterns)
+
+
 @main.route('/new_fabric', methods=['GET', 'POST'])
 def new_fabric():
     # Create a FabricForm
