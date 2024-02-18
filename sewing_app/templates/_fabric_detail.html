@@ -1,0 +1,48 @@
+<fieldset>
+  <legend>Please enter your information:</legend>
+
+  {{ form.name.label }}
+  {{ form.name }}
+
+  {% if form.name.errors %}
+  <ul>
+    {% for error in form.name.errors %}
+    <li class="error">{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {{ form.color.label }}
+  {{ form.color }}
+
+  {% if form.color.errors %}
+  <ul>
+    {% for error in form.color.errors %}
+    <li class="error">{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {{ form.quantity.label }}
+  {{ form.quantity }}
+
+  {% if form.quantity.errors %}
+  <ul>
+    {% for error in form.quantity.errors %}
+    <li class="error">{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {{ form.photo_url.label }}
+  {{ form.photo_url }}
+
+  {% if form.photo_url.errors %}
+  <ul>
+    {% for error in form.photo_url.errors %}
+    <li class="error">{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {{ form.submit }}
+</fieldset>
