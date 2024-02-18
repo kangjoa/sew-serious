@@ -41,7 +41,7 @@ def new_fabric():
         # flash a success message, and
         # redirect the user to the fabric detail page.
         flash('New fabric was created successfully!')
-        return redirect(url_for('main.fabric_detail', store_id=new_fabric.id))
+        return redirect(url_for('main.fabric_detail', fabric_id=new_fabric.id))
     # Send the form to the template and use it to render the form fields
     return render_template('new_fabric.html', form=form)
 
@@ -65,15 +65,15 @@ def new_pattern():
         db.session.commit()
 
         flash('New pattern was created successfully!')
-        return redirect(url_for('main.pattern_detail', item_id=new_pattern.id))
+        return redirect(url_for('main.pattern_detail', pattern_id=new_pattern.id))
 
     # Send the form to the template and use it to render the form fields
     return render_template('new_pattern.html', form=form)
 
 
-@main.route('/fabric/<store_id>', methods=['GET', 'POST'])
-def fabric_detail(store_id):
-    fabric = Fabric.query.get(store_id)
+@main.route('/fabric/<fabric_id>', methods=['GET', 'POST'])
+def fabric_detail(fabric_id):
+    fabric = Fabric.query.get(fabric_id)
     # Create a FabricForm and pass in `obj=fabric`
     form = FabricForm(obj=fabric)
 
@@ -86,16 +86,16 @@ def fabric_detail(store_id):
         db.session.commit()
 
         flash('Fabric was updated successfully!')
-        return redirect(url_for('main.fabric_detail', store_id=fabric.id))
+        return redirect(url_for('main.fabric_detail', fabric_id=fabric.id))
 
     # Send the form to the template and use it to render the form fields
-    fabric = Fabric.query.get(store_id)
+    fabric = Fabric.query.get(fabric_id)
     return render_template('fabric_detail.html', fabric=fabric, form=form)
 
 
-@main.route('/pattern/<item_id>', methods=['GET', 'POST'])
-def pattern_detail(item_id):
-    pattern = Pattern.query.get(item_id)
+@main.route('/pattern/<pattern_id>', methods=['GET', 'POST'])
+def pattern_detail(pattern_id):
+    pattern = Pattern.query.get(pattern_id)
     # Create a PatternForm and pass in `obj=pattern`
     form = PatternForm(obj=pattern)
 
@@ -108,8 +108,8 @@ def pattern_detail(item_id):
         db.session.commit()
 
         flash('Pattern was updated successfully!')
-        return redirect(url_for('main.pattern_detail', item_id=pattern.id))
+        return redirect(url_for('main.pattern_detail', pattern_id=pattern.id))
 
     # Send the form to the template and use it to render the form fields
-    pattern = Pattern.query.get(item_id)
+    pattern = Pattern.query.get(pattern_id)
     return render_template('pattern_detail.html', pattern=pattern, form=form)

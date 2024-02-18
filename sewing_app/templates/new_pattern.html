@@ -30,6 +30,18 @@
         </ul>
         {% endif %}
 
+        {{ form.fabric.label }}
+        {{ form.fabric }}
+
+        {% if form.fabric.errors %}
+        <ul>
+            {% for error in form.fabric.errors %}
+            <li class="error">{{ error }}</li>
+            {% endfor %}
+            {{ form.submit }}
+        </ul>
+        {% endif %}
+
         {{ form.submit }}
     </fieldset>
 </form>
