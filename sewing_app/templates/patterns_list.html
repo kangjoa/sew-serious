@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Patterns List</h1>
+
+{% if patterns_list %}
+<ul class="patterns-list">
+  {% for pattern in patterns_list %}
+  <li class="patterns-item">
+    <a href="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}">
+      {{ pattern.name }}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Your patterns list is empty.</p>
+{% endif %}
+
+{% endblock %}

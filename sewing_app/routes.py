@@ -134,6 +134,25 @@ def pattern_detail(pattern_id):
     return render_template('pattern_detail.html', pattern=pattern, form=form)
 
 
+@main.route('/add_to_patterns_list/<pattern_id>', methods=['POST'])
+@login_required
+def add_to_patterns_list(pattern_id):
+    """Add a pattern to the logged in user's patterns list."""
+    pattern = Pattern.query.get(pattern_id)
+    current_user.patterns_list_items.append(pattern)
+    db.session.commit()
+    flash(f'Pattern "{pattern.name}" was added to your patterns list!')
+    return redirect(url_for('main.patterns_list'))
+
+
+@main.route('/patterns_list')
+@login_required
+def patterns_list():
+    """Get logged in user's patterns list and display in a template."""
+    patterns_list = current_user.patterns_list_items
+    return render_template('patterns_list.html', patterns_list=patterns_list)
+
+
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignUpForm()
