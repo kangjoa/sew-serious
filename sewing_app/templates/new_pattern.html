@@ -30,15 +30,18 @@
         </ul>
         {% endif %}
 
-        {{ form.fabric.label }}
-        {{ form.fabric }}
+        {{ form.fabrics.label }}
+        <select name="fabrics" multiple="multiple">
+            {% for fabric in form.fabrics %}
+            <option value="{{ fabric.id }}">{{ fabric.name }}</option>
+            {% endfor %}
+        </select>
 
-        {% if form.fabric.errors %}
+        {% if form.fabrics.errors %}
         <ul>
-            {% for error in form.fabric.errors %}
+            {% for error in form.fabrics.errors %}
             <li class="error">{{ error }}</li>
             {% endfor %}
-            {{ form.submit }}
         </ul>
         {% endif %}
 
@@ -56,6 +59,5 @@
         {{ form.submit }}
     </fieldset>
 </form>
-
 
 {% endblock %}

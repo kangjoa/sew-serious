@@ -60,8 +60,15 @@ def new_pattern():
             name=form.name.data,
             category=form.category.data,
             photo_url=form.photo_url.data,
-            fabric=form.fabric.data
         )
+
+        fabrics = form.fabrics.data
+        for fabric_id in fabrics:
+            fabric = Fabric.query.get(fabric_id)
+            new_pattern.fabrics.append(fabric)
+            if fabric:
+                new_pattern.fabrics.append(fabric)
+
         db.session.add(new_pattern)
         db.session.commit()
 
