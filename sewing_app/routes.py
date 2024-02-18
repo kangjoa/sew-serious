@@ -1,12 +1,14 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
+from flask_login import login_user, logout_user, login_required, current_user
 from datetime import date, datetime
-from sewing_app.models import Fabric, Pattern
-from sewing_app.forms import FabricForm, PatternForm
+from sewing_app.models import Fabric, Pattern, User
+from sewing_app.forms import FabricForm, PatternForm, SignUpForm, LoginForm
 
-# Import app and db from events_app package so that we can run app
-from sewing_app.extensions import app, db
+# Import app and db from sewing_app package so that we can run app
+from sewing_app.extensions import app, db, bcrypt
 
 main = Blueprint("main", __name__)
+auth = Blueprint("auth", __name__)
 
 ##########################################
 #           Routes                       #
@@ -28,6 +30,7 @@ def patterns():
 
 
 @main.route('/new_fabric', methods=['GET', 'POST'])
+@login_required
 def new_fabric():
     # Create a FabricForm
     form = FabricForm()
@@ -53,6 +56,7 @@ def new_fabric():
 
 
 @main.route('/new_pattern', methods=['GET', 'POST'])
+@login_required
 def new_pattern():
     # Create a PatternForm
     form = PatternForm()
@@ -63,7 +67,6 @@ def new_pattern():
     # - redirect the user to the pattern detail page.
     if form.validate_on_submit():
         # Extract fabric IDs from form data
-        # Assuming form.fabrics.data contains Fabric objects
         fabric_ids = [fabric.id for fabric in form.fabrics.data]
 
         # Retrieve Fabric objects based on extracted IDs
@@ -74,11 +77,6 @@ def new_pattern():
             photo_url=form.photo_url.data,
             fabrics=fabrics
         )
-
-        # for fabric_id in fabrics:
-        #     fabric = Fabric.query.get(fabric_id)
-        #     if fabric:
-        #         new_pattern.fabrics.append(fabric)
 
         db.session.add(new_pattern)
         db.session.commit()
@@ -91,6 +89,7 @@ def new_pattern():
 
 
 @main.route('/fabric/<fabric_id>', methods=['GET', 'POST'])
+@login_required
 def fabric_detail(fabric_id):
     fabric = Fabric.query.get(fabric_id)
     # Create a FabricForm and pass in `obj=fabric`
@@ -113,6 +112,7 @@ def fabric_detail(fabric_id):
 
 
 @main.route('/pattern/<pattern_id>', methods=['GET', 'POST'])
+@login_required
 def pattern_detail(pattern_id):
     pattern = Pattern.query.get(pattern_id)
     # Create a PatternForm and pass in `obj=pattern`
@@ -132,3 +132,38 @@ def pattern_detail(pattern_id):
     # Send the form to the template and use it to render the form fields
     pattern = Pattern.query.get(pattern_id)
     return render_template('pattern_detail.html', pattern=pattern, form=form)
+
+
+@auth.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = SignUpForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
+        user = User(
+            username=form.username.data,
+            password=hashed_password
+        )
+        db.session.add(user)
+        db.session.commit()
+        flash('Account Created.')
+        return redirect(url_for('auth.login'))
+    return render_template('signup.html', form=form)
+
+
+@auth.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        login_user(user, remember=True)
+        next_page = request.args.get('next')
+        return redirect(next_page if next_page else url_for('main.homepage'))
+    return render_template('login.html', form=form)
+
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.homepage'))
