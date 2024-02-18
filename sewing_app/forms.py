@@ -30,6 +30,8 @@ class PatternForm(FlaskForm):
 
     category = SelectField('Pattern Category',
                            choices=PatternCategory.choices())
+    photo_url = StringField('Sewing Pattern photo url', validators=[DataRequired(), Length(
+        min=5, max=1000, message="Your message needs to be between 5 and 1000 characters")])
 
     def fabric_query():
         """Retrieve all fabrics from the database."""

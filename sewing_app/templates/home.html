@@ -10,7 +10,7 @@
 {% for fabric in all_fabrics %}
 <div class="fabric">
     <a href="/fabric/{{ fabric.id }}">{{ fabric.name }}</a> -
-    {{ fabric.items|length }} items
+    {{ fabric.patterns|length }} {{ "pattern" if fabric.patterns|length == 1 else "patterns" }}
     <p><strong>Color:</strong> {{ fabric.color }}</p>
     <p><strong>Quantity:</strong> {{ fabric.quantity }} yds</p>
     <img class="fabric-photo" src="{{ fabric.photo_url }}" alt="Fabric Photo">

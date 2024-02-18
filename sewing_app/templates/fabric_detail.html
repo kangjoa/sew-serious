@@ -7,15 +7,15 @@
     <li><strong>Quantity:</strong> {{ fabric.quantity }} yds</li>
 </ul>
 <img class="fabric-photo" src="{{ fabric.photo_url }}" alt="Fabric Photo">
-<h2>Items</h2>
+<h2>Sewing Patterns for this Fabric</h2>
 
-<div class="items">
-    {% for pattern in fabric.items %}
+<div class="patterns">
+    {% for pattern in fabric.patterns %}
     <div class="pattern-details">
-        <a href="/pattern/{{ pattern.id }}"><img src="{{ fabric.photo_url }}" alt="{{ pattern.name }}" width="200px">
-            <p><strong>{{ pattern.name }}</strong></p>
-        </a>
-        <p><strong>{{ pattern.category }}</strong></p>
+        <a href="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}"><img class="pattern-photo"
+                src="{{ pattern.photo_url }}" alt="Pattern Photo"></a>
+        <p><strong>Pattern name: </strong>{{ pattern.name }}</p>
+        <p><strong>Category: </strong>{{ pattern.category }}</p>
     </div>
     {% endfor %}
 </div>

@@ -59,6 +59,7 @@ def new_pattern():
         new_pattern = Pattern(
             name=form.name.data,
             category=form.category.data,
+            photo_url=form.photo_url.data,
             fabric=form.fabric.data
         )
         db.session.add(new_pattern)

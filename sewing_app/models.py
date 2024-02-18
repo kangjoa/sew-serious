@@ -29,6 +29,7 @@ class Pattern(db.Model):
     name = db.Column(db.String(80), nullable=False)
     category = db.Column(db.Enum(PatternCategory),
                          default=PatternCategory.OTHER)
+    photo_url = db.Column(URLType)
     fabric_id = db.Column(
         db.Integer, db.ForeignKey('fabric.id'), nullable=False)
     fabric = db.relationship('Fabric', back_populates='patterns')

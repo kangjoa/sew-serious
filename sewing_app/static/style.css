@@ -101,7 +101,8 @@ div.pattern-details {
   border-radius: 5px;
 }
 
-.fabric-photo {
+.fabric-photo,
+.pattern-photo {
   width: 200px;
   height: 200px;
   border-radius: 50%;

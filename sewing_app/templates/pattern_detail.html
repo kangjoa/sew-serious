@@ -44,6 +44,17 @@
         </ul>
         {% endif %}
 
+        {{ form.photo_url.label }}
+        {{ form.photo_url }}
+
+        {% if form.photo_url.errors %}
+        <ul>
+            {% for error in form.photo_url.errors %}
+            <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
         {{ form.submit }}
     </fieldset>
 </form>
