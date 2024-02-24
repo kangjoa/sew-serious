@@ -234,14 +234,17 @@ class MainTests(unittest.TestCase):
 
         # Make a POST request to the /new_pattern route,
         post_data = {
-            'name': 'New Pattern',
+            'name': 'Sweatshirt',
+            'category': 'OTHER',
+            'fabrics': [1, 2],
+            'photo_url': 'https://cdn11.bigcommerce.com/s-154ncqg253/images/stencil/480x660/products/11290/73649/BUR5828_Front__33994.1705613791.jpg?c=1'
         }
         self.app.post('/new_pattern', data=post_data)
 
         # Verify that the pattern was updated in the database
-        created_pattern = Pattern.query.filter_by(name='New Pattern').first()
+        created_pattern = Pattern.query.filter_by(name='Sweatshirt').first()
         self.assertIsNotNone(created_pattern)
-        self.assertEqual(created_pattern.name, 'New Pattern')
+        self.assertEqual(created_pattern.name, 'Sweatshirt')
 
     def test_add_to_fabrics_list(self):
         new_fabric()
