@@ -42,16 +42,9 @@ def new_fabric():
 
 
 def new_pattern():
-    f1 = Fabric(
-        name='green canvas',
-        color='green',
-        quantity=2.75,
-        photo_url='https://i0.wp.com/fabriccraftsupply.com/wp-content/uploads/2017/08/brilliantafabriccloth4047-1.jpg?w=370&ssl=1'
-    )
     p1 = Pattern(
         name='cute jumpsuit',
         category=PatternCategory.OTHER,
-        fabrics=[f1],
         photo_url='https://cdn11.bigcommerce.com/s-154ncqg253/images/stencil/480x660/products/11179/72215/ME2063_Front__41806.1704462775.jpg?c=1')
     db.session.add(p1)
 
@@ -230,3 +223,77 @@ class MainTests(unittest.TestCase):
         # Check that the user was redirected to the login page
         self.assertEqual(response.status_code, 302)
         self.assertIn('/login?next=%2Fnew_fabric', response.location)
+
+    def test_new_pattern(self):
+        """Test creating an pattern."""
+        # Set up
+        new_pattern()
+        # Create a user & login (so that the user can access the route)
+        create_user()
+        login(self.app, 'timtam', 'password')
+
+        # Make a POST request to the new_pattern route
+        post_data = {
+            'name': 'New Pattern',
+            'category': 'New pattern category',
+            'fabrics': '',
+            'photo_url': 'testurlstring'
+        }
+        self.app.post('new_pattern', data=post_data)
+
+        # Verify that the pattern was updated in the database
+        created_pattern = Pattern.query.filter_by(name='New Pattern').first()
+        self.assertIsNotNone(created_pattern)
+        self.assertEqual(created_pattern.name, 'New Pattern')
+        self.assertEqual(created_pattern.biography, 'New pattern category')
+
+    def test_add_to_fabrics_list(self):
+        # Set up to create a fabric and a user
+        new_fabric()
+        create_user()
+
+        # Login as the user timtam
+        login(self.app, 'timtam', 'password')
+
+        # Make a POST request to the /favorite/1 route
+        post_data = {
+            'fabric_id': 1
+        }
+        self.app.post('/fabric/1', data=post_data)
+
+        # Verify that the fabric with id 1 was added to the user's fabrics list
+        # Look for first user with username timtam
+        created_user = User.query.filter_by(username='timtam').first()
+        fabric_list_items = created_user.fabric_list_items
+
+        # Check if fabric with id 1 is in the user's fabrics list
+        fabrics_in_fabrics_list = any(
+            fabric.id == 1 for fabric in fabric_list_items)
+        self.assertTrue(fabrics_in_fabrics_list,
+                        "Fabric with id 1 was not found in the user's fabrics list")
+
+    def test_remove_from_fabrics_list(self):
+        # Set up to create a fabric and a user
+        new_fabric()
+        create_user()
+
+        # Login as the user timtam, and add fabric with id 1 to timtam's fabrics list
+        login(self.app, 'timtam', 'password')
+
+        # Make a POST request to the /unfavorite/1 route
+        post_data = {
+            'fabric_id': 1
+        }
+        self.app.post('/unfavorite/1', data=post_data)
+
+        # Verify that the fabric with id 1 was removed from the user's
+        # fabrics list
+        # Look for first user with username timtam
+        created_user = User.query.filter_by(username='timtam').first()
+        fabric_list_items = created_user.fabric_list_items
+
+        # Check if fabric with id 1 is in the user's fabrics list
+        fabrics_in_fabrics_list = any(
+            fabric.id == 1 for fabric in favorite_fabrics)
+        self.assertFalse(fabrics_in_fabrics_list,
+                         "Fabric with id 1 was found in the user's fabrics list")
