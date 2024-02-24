@@ -279,6 +279,6 @@ class MainTests(unittest.TestCase):
         fabrics_list_items = created_user.fabrics_list_items
 
         fabrics_in_fabrics_list = any(
-            book.id == 1 for book in fabrics_list_items)
+            fabric.id == 1 for Fabric in fabrics_list_items)
         self.assertFalse(fabrics_in_fabrics_list,
                          "Book with id 1 was found in the user's fabrics list")
