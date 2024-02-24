@@ -254,7 +254,7 @@ class MainTests(unittest.TestCase):
         post_data = {
             'fabric_id': 1
         }
-        self.app.post('/fabric/1', data=post_data)
+        self.app.post('/add_to_fabrics_list/1', data=post_data)
 
         created_user = User.query.filter_by(username='timtam').first()
         fabrics_list_items = created_user.fabrics_list_items
@@ -273,7 +273,7 @@ class MainTests(unittest.TestCase):
         post_data = {
             'book_id': 1
         }
-        self.app.post('/remove_from_fabrics_list/1', data=post_data)
+        self.app.post('/fabrics_list/1', data=post_data)
 
         created_user = User.query.filter_by(username='timtam').first()
         fabrics_list_items = created_user.fabrics_list_items
