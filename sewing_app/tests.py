@@ -48,7 +48,7 @@ def new_pattern():
         category=PatternCategory.OTHER,
         photo_url='https://cdn11.bigcommerce.com/s-154ncqg253/images/stencil/480x660/products/11179/72215/ME2063_Front__41806.1704462775.jpg?c=1')
     db.session.add(p1)
-    db.session.commit()
+    # db.session.commit()
 
 
 def create_user():
@@ -57,6 +57,7 @@ def create_user():
     user = User(username='timtam', password=password_hash)
     db.session.add(user)
     db.session.commit()
+
 
 #################################################
 # Tests
@@ -225,3 +226,59 @@ class MainTests(unittest.TestCase):
         # Check that the user was redirected to the login page
         self.assertEqual(response.status_code, 302)
         self.assertIn('/login?next=%2Fnew_fabric', response.location)
+
+    def test_new_pattern(self):
+        # Create a user & login (so that the user can access the route)
+        create_user()
+        login(self.app, 'timtam', 'password')
+
+        # Make a POST request to the /new_pattern route,
+        post_data = {
+            'name': 'New Pattern',
+        }
+        self.app.post('/new_pattern', data=post_data)
+
+        # Verify that the pattern was updated in the database
+        created_pattern = Pattern.query.filter_by(name='New Pattern').first()
+        self.assertIsNotNone(created_pattern)
+        self.assertEqual(created_pattern.name, 'New Pattern')
+
+    def test_add_to_fabrics_list(self):
+        new_fabric()
+        create_user()
+
+        # Login as the user
+        login(self.app, 'timtam', 'password')
+
+        # Make a POST request to the /fabric/1 route
+        post_data = {
+            'fabric_id': 1
+        }
+        self.app.post('/fabric/1', data=post_data)
+
+        created_user = User.query.filter_by(username='timtam').first()
+        fabrics_list_items = created_user.fabrics_list_items
+
+        fabrics_in_fabrics_list = any(
+            fabric.id == 1 for fabric in fabrics_list_items)
+        self.assertTrue(fabrics_in_fabrics_list,
+                        "Fabric with id 1 was not found in the user's fabrics list")
+
+    def test_remove_from_fabrics_list(self):
+        new_fabric()
+        create_user()
+
+        login(self.app, 'timtam', 'password')
+
+        post_data = {
+            'book_id': 1
+        }
+        self.app.post('/remove_from_fabrics_list/1', data=post_data)
+
+        created_user = User.query.filter_by(username='timtam').first()
+        fabrics_list_items = created_user.fabrics_list_items
+
+        fabrics_in_fabrics_list = any(
+            book.id == 1 for book in fabrics_list_items)
+        self.assertFalse(fabrics_in_fabrics_list,
+                         "Book with id 1 was found in the user's fabrics list")
