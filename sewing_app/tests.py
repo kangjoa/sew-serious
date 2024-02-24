@@ -40,10 +40,20 @@ def new_fabric():
     )
     db.session.add(f1)
 
-    # p2 = Pattern(name='cute jumpsuit')
-    # f2 = Fabric(name='purple fabric', pattern=p2)
-    # db.session.add(f2)
-    # db.session.commit()
+
+def new_pattern():
+    f1 = Fabric(
+        name='green canvas',
+        color='green',
+        quantity=2.75,
+        photo_url='https://i0.wp.com/fabriccraftsupply.com/wp-content/uploads/2017/08/brilliantafabriccloth4047-1.jpg?w=370&ssl=1'
+    )
+    p1 = Pattern(
+        name='cute jumpsuit',
+        category=PatternCategory.OTHER,
+        fabrics=[f1],
+        photo_url='https://cdn11.bigcommerce.com/s-154ncqg253/images/stencil/480x660/products/11179/72215/ME2063_Front__41806.1704462775.jpg?c=1')
+    db.session.add(p1)
 
 
 def create_user():
@@ -160,3 +170,63 @@ class MainTests(unittest.TestCase):
 
         # Check that the response contains the 'Add to Fabrics List' button
         self.assertIn('Add to Fabrics List', response_text)
+
+    def test_update_fabric(self):
+        """Test updating a fabric."""
+        # Set up
+        new_fabric()
+        create_user()
+        login(self.app, 'timtam', 'password')
+
+        # Make POST request with data
+        post_data = {
+            'name': 'green canvas',
+            'color': 'green',
+            'quantity': 4,
+            'photo_url': 'https://i0.wp.com/fabriccraftsupply.com/wp-content/uploads/2017/08/brilliantafabriccloth4047-1.jpg?w=370&ssl=1',
+        }
+        self.app.post('/fabric/1', data=post_data)
+
+        # Make sure the fabric was updated as we'd expect
+        fabric = Fabric.query.get(1)
+        self.assertEqual(fabric.name, 'green canvas')
+        self.assertEqual(fabric.color, 'green')
+        self.assertEqual(fabric.quantity, 4)
+        self.assertEqual(
+            fabric.photo_url, 'https://i0.wp.com/fabriccraftsupply.com/wp-content/uploads/2017/08/brilliantafabriccloth4047-1.jpg?w=370&ssl=1')
+
+    def test_new_fabric(self):
+        """Test creating a fabric."""
+        # Set up
+        new_fabric()
+        create_user()
+        login(self.app, 'timtam', 'password')
+
+        # Make POST request with data
+        post_data = {
+            'name': 'Light Linen',
+            'color': 'Lavender',
+            'quantity': 3,
+            'photo_url': 'testurlstring'
+        }
+        self.app.post('/new_fabric', data=post_data)
+
+        # Check that fabric was created as expected
+        created_fabric = Fabric.query.filter_by(name='Light Linen').one()
+        self.assertIsNotNone(created_fabric)
+        self.assertEqual(created_fabric.color, 'Lavender')
+
+    def test_new_fabric_logged_out(self):
+        """
+        Test that the user is redirected when trying to access the create a new fabric route if not logged in.
+        """
+        # Set up
+        new_fabric()
+        create_user()
+
+        # Make GET request
+        response = self.app.get('/new_fabric')
+
+        # Check that the user was redirected to the login page
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('/login?next=%2Fnew_fabric', response.location)
