@@ -250,7 +250,7 @@ class MainTests(unittest.TestCase):
         # Login as the user
         login(self.app, 'timtam', 'password')
 
-        # Make a POST request to the /fabric/1 route
+        # Make a POST request to the /add_to_fabrics_list/1 route
         post_data = {
             'fabric_id': 1
         }
@@ -270,10 +270,17 @@ class MainTests(unittest.TestCase):
 
         login(self.app, 'timtam', 'password')
 
+        # Add the fabric to fabric list
         post_data = {
-            'book_id': 1
+            'fabric_id': 1
         }
-        self.app.post('/fabrics_list/1', data=post_data)
+        self.app.post('/add_to_fabrics_list/1', data=post_data)
+
+        # Remove the fabric from fabric list
+        post_data = {
+            'fabric_id': 1
+        }
+        self.app.post('/remove_from_fabrics_list/1', data=post_data)
 
         created_user = User.query.filter_by(username='timtam').first()
         fabrics_list_items = created_user.fabrics_list_items
@@ -281,4 +288,4 @@ class MainTests(unittest.TestCase):
         fabrics_in_fabrics_list = any(
             fabric.id == 1 for Fabric in fabrics_list_items)
         self.assertFalse(fabrics_in_fabrics_list,
-                         "Book with id 1 was found in the user's fabrics list")
+                         "Fabric with id 1 was found in the user's fabrics list")
