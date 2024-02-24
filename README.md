@@ -1,8 +1,8 @@
-# Homework 3: Grocery Fabric
+# Final Project
+## Sewing App
+This sewing app helps users keep track of their fabric stash and sewing pattern collection. Users can create new fabrics or sewing pattern records and add them to their fabric lists or patterns lists.
 
-_For instructions on how to complete this assignment, see [part 1](https://github.com/Tech-at-DU/ACS-1220-Authentication-and-Associations/blob/master/Assignments/grocery-fabric.md) and [part 2](https://github.com/Tech-at-DU/ACS-1220-Authentication-and-Associations/blob/master/Assignments/grocery-fabric-part-2.md)._
-
-To run this code, start by cloning this repository to your computer. Then in a terminal, navigate to the project folder.
+### Set up
 
 Create virtual environment and activate:
 ```
@@ -29,7 +29,7 @@ Use `mv .env.example .env` when you want to rename the file.
 Then you can run the server:
 
 ```
-python3 app.py
+python app.py
 ```
 
 When you are finished coding, simply close the terminal or type `deactivate` to terminate the virtual environment.
