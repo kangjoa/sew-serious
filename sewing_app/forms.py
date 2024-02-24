@@ -41,7 +41,7 @@ class PatternForm(FlaskForm):
 
     # Assign the fabric_query function to the query_factory param of the QuerySelectMultipleField
     fabrics = QuerySelectMultipleField('Fabrics for patterns',
-                                       query_factory=fabric_query, get_label='name', allow_blank=True)
+                                       query_factory=fabric_query, get_label='name')
     submit = SubmitField('Submit')
 
 
