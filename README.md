@@ -6,7 +6,7 @@ This sewing app helps users keep track of their fabric stash and sewing pattern 
 - **Python**: the primary programming language used for backend development.
 - **Flask**: a micro web framework used to build the web application.[(source)](https://flask.palletsprojects.com/en/3.0.x/)
 - **WTForms**:  a flexible forms validation and rendering library for Python web development.[(source)](https://wtforms.readthedocs.io/en/3.1.x/)
-- **Flask-WTF**: integration of Flask and WTForms, including CSRF. The `crsf_token` is included in forms to prevent Cross-Site Request Forgery (CSRF) attacks. [(source)](https://flask-wtf.readthedocs.io/en/1.2.x/)
+- **Flask-WTF**: integration of Flask and WTForms, including CSRF. The `csrf_token` is included in forms to prevent Cross-Site Request Forgery (CSRF) attacks. [(source)](https://flask-wtf.readthedocs.io/en/1.2.x/)
 - **SQLAlchemy**: Python SQL toolkit and Object Relational Mapper. [(source)](https://www.sqlalchemy.org/)
 - **Flask-Login**: provides user session management for Flask, such as logging in and logging out. [(source)](https://flask-login.readthedocs.io/en/latest/)
 
