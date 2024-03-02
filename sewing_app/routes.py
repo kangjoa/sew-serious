@@ -19,7 +19,7 @@ auth = Blueprint("auth", __name__)
 def homepage():
     all_fabrics = Fabric.query.all()
     all_fabrics_names = ', '.join([fabric.name for fabric in all_fabrics])
-    print(f"All fabric names: {all_fabrics_names}")
+    # print(f"All fabric names: {all_fabrics_names}")
     return render_template('home.html', all_fabrics=all_fabrics)
 
 
