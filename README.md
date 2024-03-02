@@ -1,5 +1,5 @@
 # Final Project
-## Sewing App
+## Sew Serious
 This sewing app helps users keep track of their fabric stash and sewing pattern collection. Users can create new fabrics or sewing pattern records and add them to their fabric lists or patterns lists.
 
 ### Technologies Used:
