@@ -5,12 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tailwindcss -i ./sewing_app/static/src/input.css -o ./sewing_app/static/dist/css/output.css"
+    "build": "tailwindcss -i ./sewing_app/static/src/input.css -o ./sewing_app/static/dist/css/output.css",
+    "watch": "watch 'npm run build' ./sewing_app/static/src"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.7"
   }
 }

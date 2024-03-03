@@ -15,6 +15,7 @@ module.exports = {
       xl: '1440px',
     },
     colors: {
+      charcoal: '#1e293b',
       blue: '#A0E8E5',
       'dark-blue': '#0369a1',
       purple: '#C9A0FF',
@@ -52,5 +53,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };
