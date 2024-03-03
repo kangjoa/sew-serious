@@ -1,26 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Sewing App</h1>
+<section class="bg-charcoal">
+    <div class="container px-6 py-6 mx-auto">
+        <h1 class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">Sewing App</h1>
 
-<p><em>Keep track of your fabrics and patterns.</em></p>
+        <p>Keep track of your fabrics and patterns.</p>
 
-<h2>All Fabrics</h2>
+        <h2>All Fabrics</h2>
 
-{% for fabric in all_fabrics %}
-<div class="fabric">
-    <a href="/fabric/{{ fabric.id }}">{{ fabric.name }}</a> -
-    {% if fabric.patterns|length == 0 %}
-    <strong>0 patterns</strong> - not tagged yet!
-    {% elif fabric.patterns|length == 1 %}
-    <strong>1 pattern</strong> tagged with this fabric
-    {% else %}
-    <strong>{{ fabric.patterns|length }} patterns</strong> tagged with this fabric
-    {% endif %}
-    <p><strong>Color:</strong> {{ fabric.color }}</p>
-    <p><strong>Quantity:</strong> {{ fabric.quantity }} yds</p>
-    <img class="fabric-photo" src="{{ fabric.photo_url }}" alt="Fabric Photo">
-</div>
-{% endfor %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            {% for fabric in all_fabrics %}
+            <div class="flex flex-col">
+                <div class="justify-between p-6 lg:mx-6">
+                    <a href="/fabric/{{ fabric.id }}">{{ fabric.name }}</a> -
+                    {% if fabric.patterns|length == 0 %}
+                    <strong>0 patterns</strong> - not tagged yet!
+                    {% elif fabric.patterns|length == 1 %}
+                    <strong>1 pattern</strong> tagged with this fabric
+                    {% else %}
+                    <strong>{{ fabric.patterns|length }} patterns</strong> tagged with this fabric
+                    {% endif %}
+                    <p><strong>Color:</strong> {{ fabric.color }}</p>
+                    <p><strong>Quantity:</strong> {{ fabric.quantity }} yds</p>
+                    <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="{{ fabric.photo_url }}"
+                        alt="Fabric Photo">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
 
 {% endblock %}
