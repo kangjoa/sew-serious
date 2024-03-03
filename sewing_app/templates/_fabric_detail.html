@@ -1,10 +1,10 @@
-<div class="flex flex-wrap text-blue -mx-3 mb-6">
-  <fieldset>
-    <legend class="px-7">Please enter your information:</legend>
-    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label class="text-blue uppercase tracking-wide text-xs font-bold mb-2">
-        <div
-          class="appearance-none block w-full py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white rounded">
+<div class="flex flex-wrap text-blue min-h-screen">
+  <fieldset class="flex flex-grow">
+    <legend class="px-4">Please enter your information:</legend>
+    <!-- <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0"> -->
+    <div class="flex flex-col items-end w-full md:w-1/2 px-3 mb-3 md:mb-0">
+      <label class="text-blue uppercase tracking-wide text-xs font-bold">
+        <div class="appearance-none block w-full py-3 px-4 leading-tight focus:outline-none focus:bg-white rounded">
           {{ form.name.label }}
           {{ form.name(class="bg-pink-600 text-charcoal rounded-lg") }}
         </div>
@@ -18,8 +18,7 @@
       {% endif %}
 
       <label class="block uppercase tracking-wide text-xs font-bold mb-2">
-        <div
-          class="appearance-none block w-full rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+        <div class="appearance-none block w-full rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white">
           {{ form.color.label }}
           {{ form.color(class="bg-pink-600 text-charcoal rounded-lg") }}
         </div>
@@ -34,7 +33,7 @@
 
       <label class="block uppercase tracking-wide text-xs font-bold mb-2">
         <div
-          class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+          class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white">
           {{ form.quantity.label }}
           {{ form.quantity(class="bg-pink-600 text-charcoal rounded-lg") }}
         </div>
@@ -49,7 +48,7 @@
 
       <label class="block uppercase tracking-wide text-xs font-bold mb-2">
         <div
-          class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+          class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white">
           {{ form.photo_url.label }}
           {{ form.photo_url(class="bg-pink-600 text-charcoal rounded-lg") }}
         </div>
@@ -63,9 +62,12 @@
       </ul>
       {% endif %}
 
-      <button class="bg-dark-purple hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit">
-        {{ form.submit }}
-      </button>
+      <div>
+        <button class="bg-dark-purple hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer"
+          type="submit">
+          {{ form.submit }}
+        </button>
+      </div>
     </div>
   </fieldset>
 </div>
