@@ -21,14 +21,15 @@
                         </a>
                     </div>
                     <div>
-                        <a href="/fabric/{{ fabric.id }}" class="bg-dark-purple p-2 mt-2 mb-2 rounded-lg">{{ fabric.name
-                            }}</a> -
+                        <a href="/fabric/{{ fabric.id }}" class="bg-dark-purple p-2 mt-2 mb-3 rounded-lg">{{ fabric.name
+                            }}</a>
                         {% if fabric.patterns|length == 0 %}
-                        <strong>0 patterns</strong> - not tagged yet!
+                        <p class="mt-2"><strong>0 patterns</strong> - not tagged yet!</p>
                         {% elif fabric.patterns|length == 1 %}
-                        <strong>1 pattern</strong> tagged with this fabric
+                        <p class="mt-2"><strong>1 pattern</strong> tagged with this fabric</p>
                         {% else %}
-                        <strong>{{ fabric.patterns|length }} patterns</strong> tagged with this fabric
+                        <p class="mt-2"><strong>{{ fabric.patterns|length }} patterns</strong> tagged with this fabric
+                        </p>
                         {% endif %}
                         <p><strong>Color:</strong> {{ fabric.color }}</p>
                         <p><strong>Quantity:</strong> {{ fabric.quantity }} yds</p>
