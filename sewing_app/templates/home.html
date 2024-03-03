@@ -3,8 +3,8 @@
 
 <section class="bg-charcoal">
     <!-- <div class="px-6 py-6 mx-auto"> -->
-    <div class="felx flex-grow mx-auto max-w-2xl px-6 py-6 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h1 class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">Sewing App</h1>
+    <div class="mx-auto max-w-2xl px-6 py-6 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
+        <h1 class="text-3xl font-semibold text-gray capitalize lg:text-4xl">Sewing App</h1>
 
         <p>Keep track of your fabrics and patterns.</p>
 
@@ -15,8 +15,8 @@
             <div class="flex flex-col">
                 <div class="justify-between p-6 lg:mx-6">
                     <div <a href="/fabric/{{ fabric.id }}">
-                        <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="{{ fabric.photo_url }}"
-                            alt="Fabric Photo">
+                        <img class="object-cover outline outline-1 w-full h-56 rounded-lg lg:w-64"
+                            src="{{ fabric.photo_url }}" alt="Fabric Photo">
                         </a>
                     </div>
                     <a href="/fabric/{{ fabric.id }}">{{ fabric.name }}</a> -
