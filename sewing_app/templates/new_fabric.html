@@ -3,10 +3,9 @@
 
 <h1>New Fabric</h1>
 
-<form method="POST" action="{{ url_for('main.new_fabric')}}">
+<form method="POST" action="{{ url_for('main.new_fabric')}}" class="w-full max-w-lg">
     {{ form.csrf_token }}
     {% include '_fabric_detail.html' %}
 </form>
-
 
 {% endblock %}

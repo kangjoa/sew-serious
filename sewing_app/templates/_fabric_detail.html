@@ -1,48 +1,71 @@
-<fieldset>
-  <legend>Please enter your information:</legend>
+<div class="flex flex-wrap -mx-3 mb-6">
+  <fieldset>
+    <legend class="px-3">Please enter your information:</legend>
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-xs font-bold mb-2">
+        <div
+          class="appearance-none block w-full py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white rounded">
+          {{ form.name.label }}
+          {{ form.name }}
+        </div>
+      </label>
+      {% if form.name.errors %}
+      <ul class="text-blue">
+        {% for error in form.name.errors %}
+        <li class="error">{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
 
-  {{ form.name.label }}
-  {{ form.name }}
+      <label class="block uppercase tracking-wide text-xs font-bold mb-2">
+        <div
+          class="appearance-none block w-full rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+          {{ form.color.label }}
+          {{ form.color }}
+        </div>
+      </label>
+      {% if form.color.errors %}
+      <ul>
+        {% for error in form.color.errors %}
+        <li class="error">{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
 
-  {% if form.name.errors %}
-  <ul class="text-blue-600">
-    {% for error in form.name.errors %}
-    <li class="error">{{ error }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-  {{ form.color.label }}
-  {{ form.color }}
+      <label class="block uppercase tracking-wide text-xs font-bold mb-2">
+        <div
+          class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+          {{ form.quantity.label }}
+          {{ form.quantity }}
+        </div>
+      </label>
+      {% if form.quantity.errors %}
+      <ul>
+        {% for error in form.quantity.errors %}
+        <li class="error">{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
 
-  {% if form.color.errors %}
-  <ul>
-    {% for error in form.color.errors %}
-    <li class="error">{{ error }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
+      <label class="block uppercase tracking-wide text-xs font-bold mb-2">
+        <div
+          class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+          {{ form.photo_url.label }}
+          {{ form.photo_url }}
+        </div>
+      </label>
 
-  {{ form.quantity.label }}
-  {{ form.quantity }}
+      {% if form.photo_url.errors %}
+      <ul>
+        {% for error in form.photo_url.errors %}
+        <li class="error">{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
 
-  {% if form.quantity.errors %}
-  <ul>
-    {% for error in form.quantity.errors %}
-    <li class="error">{{ error }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
-  {{ form.photo_url.label }}
-  {{ form.photo_url }}
-
-  {% if form.photo_url.errors %}
-  <ul>
-    {% for error in form.photo_url.errors %}
-    <li class="error">{{ error }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
-  {{ form.submit }}
-</fieldset>
+      <button class="bg-dark-purple hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit">
+        {{ form.submit }}
+      </button>
+    </div>
+  </fieldset>
+</div>
