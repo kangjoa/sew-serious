@@ -1,12 +1,12 @@
-<div class="flex flex-wrap -mx-3 mb-6">
+<div class="flex flex-wrap text-blue -mx-3 mb-6">
   <fieldset>
-    <legend class="px-3">Please enter your information:</legend>
+    <legend class="px-7">Please enter your information:</legend>
     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-xs font-bold mb-2">
+      <label class="text-blue uppercase tracking-wide text-xs font-bold mb-2">
         <div
           class="appearance-none block w-full py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white rounded">
           {{ form.name.label }}
-          {{ form.name }}
+          {{ form.name(class="bg-pink-600 text-charcoal rounded-lg") }}
         </div>
       </label>
       {% if form.name.errors %}
@@ -21,7 +21,7 @@
         <div
           class="appearance-none block w-full rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
           {{ form.color.label }}
-          {{ form.color }}
+          {{ form.color(class="bg-pink-600 text-charcoal rounded-lg") }}
         </div>
       </label>
       {% if form.color.errors %}
@@ -36,7 +36,7 @@
         <div
           class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
           {{ form.quantity.label }}
-          {{ form.quantity }}
+          {{ form.quantity(class="bg-pink-600 text-charcoal rounded-lg") }}
         </div>
       </label>
       {% if form.quantity.errors %}
@@ -51,7 +51,7 @@
         <div
           class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
           {{ form.photo_url.label }}
-          {{ form.photo_url }}
+          {{ form.photo_url(class="bg-pink-600 text-charcoal rounded-lg") }}
         </div>
       </label>
 

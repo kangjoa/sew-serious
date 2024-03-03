@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>New Fabric</h1>
+<h1 class="text-3xl font-semibold text-gray capitalize lg:text-4xl p-4">New Fabric</h1>
 
 <form method="POST" action="{{ url_for('main.new_fabric')}}" class="w-full max-w-lg">
     {{ form.csrf_token }}
