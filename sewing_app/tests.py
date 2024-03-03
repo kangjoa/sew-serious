@@ -112,11 +112,16 @@ class MainTests(unittest.TestCase):
 
         # Check that page contains what is expected on home page
         response_text = response.get_data(as_text=True)
+        response_text_modified_fabric = response_text.replace(
+            'New\n                        Fabric', 'New Fabric')
+        response_text_modified_pattern = response_text.replace(
+            'New\n                        Pattern', 'New Pattern')
+
         self.assertIn('green canvas', response_text)
         self.assertIn('green', response_text)
         self.assertIn('timtam', response_text)
-        self.assertIn('New Fabric', response_text)
-        self.assertIn('New Pattern', response_text)
+        self.assertIn('New Fabric', response_text_modified_fabric)
+        self.assertIn('New Pattern', response_text_modified_pattern)
 
         # Check that the page doesn't contain what is not expected on home page
         # (what only logged out users should see)
