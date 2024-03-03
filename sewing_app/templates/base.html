@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <name>Fabric and Pattern Tracker</name>
-    <link rel="stylesheet" href="{{url_for('static',filename='sewing_app/static/dist/css/output.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='dist/css/output.css')}}">
 </head>
 
 <body>
-    <div class="text-blue-600" id="content">
+    <div class="text-blue" id="content">
         {% for message in get_flashed_messages() %}
         <p>{{ message }}</p>
         {% endfor %}

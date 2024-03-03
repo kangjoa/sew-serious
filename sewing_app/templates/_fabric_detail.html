@@ -5,7 +5,7 @@
   {{ form.name }}
 
   {% if form.name.errors %}
-  <ul>
+  <ul class="text-blue-600">
     {% for error in form.name.errors %}
     <li class="error">{{ error }}</li>
     {% endfor %}
