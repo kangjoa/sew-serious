@@ -1,23 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Patterns List</h1>
+<section class="bg-charcoal">
+  <h1 class="text-3xl bg-charcoal font-semibold text-gray capitalize lg:text-4xl p-6">Patterns List</h1>
 
-{% if patterns_list %}
-<ul class="patterns-list">
-  {% for pattern in patterns_list %}
-  <li class="patterns-item">
-    <a href="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}">
-      {{ pattern.name }}
-      <form action="{{ url_for('main.remove_from_patterns_list', pattern_id=pattern.id) }}" method="POST">
-        {{ csrf_token }}
-        <button type="submit" class="btn-remove-from-list">Remove from Patterns List</button>
-      </form>
-  </li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>Your patterns list is empty.</p>
-{% endif %}
+  {% if patterns_list %}
+  <ul role="list" class="divide-y divide-gray">
+    {% for pattern in patterns_list %}
+    <li class="flex justify-between gap-x-6 px-6 py-5">
+      <div class="flex min-w-0 gap-x-4">
+        <a href="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}">
+          <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{{ pattern.photo_url }}"
+            alt="{{ pattern.name }}">
+        </a>
+        <div class="min-w-0 flex-auto">
+          <a href="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}">
+            <p class="text-sm font-semibold leading-6 text-gray-900">{{ pattern.name }}</p>
+          </a>
+          <form action="{{ url_for('main.remove_from_patterns_list', pattern_id=pattern.id) }}" method="POST">
+            {{ csrf_token }}
+            <button class="bg-dark-purple hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer"
+              type="submit">Remove from Patterns List</button>
+          </form>
+        </div>
+      </div>
+      <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
 
-{% endblock %}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>Your patterns list is empty.</p>
+  {% endif %}
+
+  {% endblock %}
+</section>
