@@ -7,23 +7,24 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {% for pattern in all_patterns %}
             <div class="flex flex-col">
-                <div class="leading-relaxed bg-green justify-between p-6 lg:mx-2">
+                <div class="leading-relaxed bg-charcoal justify-between p-6 lg:mx-2">
                     <div>
                         <a href="/pattern/{{ pattern.id }}">
-                            <img class="object-cover rounded-lg" src="{{ pattern.photo_url }}" alt="Pattern Photo">
+                            <img class="object-cover rounded-lg mb-3" src="{{ pattern.photo_url }}" alt="Pattern Photo">
                         </a>
+                        <a href="/pattern/{{ pattern.id }}" class="bg-dark-purple p-2 mt-2 mb-3 rounded-lg">{{
+                            pattern.name }}</a>
+                        {% if pattern.fabrics|length == 0 %}
+                        <p class="mt-2"><strong>0 fabrics</strong> - not tagged yet!</p>
+                        {% elif pattern.fabrics|length == 1 %}
+                        <p class="mt-2"><strong>{{ pattern.fabrics|length }} fabric</strong> tagged with this pattern
+                        </p>
+                        {% else %}
+                        <p class="mt-2"><strong>{{ pattern.fabrics|length }} fabrics</strong> tagged with this pattern
+                        </p>
+                        {% endif %}
+                        <p class="mt-2"><strong>Category:</strong> {{ pattern.category }}</p>
                     </div>
-                </div>
-                <div>
-                    <a href="/pattern/{{ pattern.id }}">{{ pattern.name }}</a> -
-                    {% if pattern.fabrics|length == 0 %}
-                    <p><strong>0 fabrics</strong> - not tagged yet!</p>
-                    {% elif pattern.fabrics|length == 1 %}
-                    <p><strong>{{ pattern.fabrics|length }} fabric</strong> tagged with this pattern</p>
-                    {% else %}
-                    <p><strong>{{ pattern.fabrics|length }} fabrics</strong> tagged with this pattern</p>
-                    {% endif %}
-                    <p><strong>Category:</strong> {{ pattern.category }}</p>
                 </div>
             </div>
             {% endfor %}
