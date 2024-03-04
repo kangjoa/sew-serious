@@ -1,49 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
-<section>
-    <div class="mx-auto max-w-2xl px-6 py-6 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
-        <h1 class="text-3xl font-semibold text-gray capitalize lg:text-4xl">Fabric - {{ fabric.name }}</h1>
-        <ul>
-            <li><strong>Color:</strong> {{ fabric.color }}</li>
-            <li><strong>Quantity:</strong> {{ fabric.quantity }} yds</li>
-            <li><strong>Created By:</strong> {{ fabric.created_by.username }}</li>
-        </ul>
-        <div flex flex-col>
-            <img class="object-cover w-1/2 h-1/2 outline outline-1 outline-blue mb-3 rounded-lg"
-                src="{{ fabric.photo_url }}" alt="Fabric Photo">
-        </div>
-        <form action="{{ url_for('main.add_to_fabrics_list', fabric_id=fabric.id) }}" method="POST">
-            {{ form.csrf_token }}
-            <button type="submit" class="bg-dark-purple p-2 mt-2 mb-3 rounded-lg">Add to Fabrics List</button>
-        </form>
-        <div class="mx-auto max-w-2xl px-6 py-6 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
-            <h2 class="text-2xl font-bold tracking-tight text-gray">Sewing Patterns for this Fabric</h2>
-            {% if fabric.patterns|length == 0 %}
-            <p>No patterns tagged yet.</p>
-            {% else %}
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-                {% for pattern in fabric.patterns %}
-                <div class="flex flex-col">
-                    <div class="leading-relaxed justify-between p-1 lg:mx-2">
-                        <a href="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}"><img
-                                class="object-cover w-50 h-1/2 rounded-lg mb-3" src="{{ pattern.photo_url }}"
-                                alt="Pattern Photo"></a>
-                        <p><strong>Pattern name: </strong>{{ pattern.name }}</p>
-                        <p><strong>Category: </strong>{{ pattern.category }}</p>
-                    </div>
+<section class="mx-auto max-w-2xl lg:max-w-7xl px-6 py-10 lg:px-8">
+    <h1 class="text-3xl lg:text-4xl font-semibold text-gray capitalize pt-2">Fabric - {{ fabric.name }}</h1>
+    <ul class="mt-4">
+        <li><strong>Color:</strong> {{ fabric.color }}</li>
+        <li><strong>Quantity:</strong> {{ fabric.quantity }} yds</li>
+        <li><strong>Created By:</strong> {{ fabric.created_by.username }}</li>
+    </ul>
+    <div class="mt-6">
+        <img class="object-cover w-1/2 h-auto lg:w-full rounded-lg mb-3 outline outline-1 outline-blue"
+            src="{{ fabric.photo_url }}" alt="Fabric Photo">
+    </div>
+    <form action="{{ url_for('main.add_to_fabrics_list', fabric_id=fabric.id) }}" method="POST">
+        {{ form.csrf_token }}
+        <button type="submit"
+            class="bg-dark-purple hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer">
+            Add to Fabrics List
+        </button>
+    </form>
+    <div class="mt-8">
+        <h2 class="text-2xl font-bold tracking-tight text-gray">Sewing Patterns for this Fabric</h2>
+        {% if fabric.patterns|length == 0 %}
+        <p>No patterns tagged yet.</p>
+        {% else %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for pattern in fabric.patterns %}
+            <div class="flex flex-col">
+                <div class="p-4 bg-charcoal rounded-lg shadow-md">
+                    <a href="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}">
+                        <img class="object-cover w-40 h-auto rounded-lg mb-3" src="{{ pattern.photo_url }}"
+                            alt="Pattern Photo">
+                    </a>
+                    <p class="text-base font-semibold">{{ pattern.name }}</p>
+                    <p class="text-sm">{{ pattern.category }}</p>
                 </div>
-                {% endfor %}
             </div>
-            {% endif %}
+            {% endfor %}
         </div>
-
+        {% endif %}
+    </div>
+    <div class="mt-8">
         <h2 class="text-2xl font-bold tracking-tight text-gray">Edit Fabric</h2>
-
         <form method="POST" action="{{ url_for('main.fabric_detail', fabric_id = fabric.id) }}">
             {{ form.csrf_token }}
             {% include '_fabric_detail.html' %}
         </form>
-        {% endblock %}
     </div>
 </section>
+{% endblock %}
