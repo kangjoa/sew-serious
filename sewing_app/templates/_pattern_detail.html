@@ -1,50 +1,72 @@
-<fieldset>
-  <legend>Please enter your information:</legend>
+<div class="flex flex-wrap text-blue min-h-screen">
+  <fieldset class="flex flex-grow">
+    <legend class="px-6">Please enter your information:</legend>
+    <div class="flex flex-col items-end w-full md:w-1/2 px-3 mb-3 md:mb-0">
+      <label class="text-blue uppercase tracking-wide text-xs font-bold">
+        <div class="appearance-none block w-full py-3 px-4 leading-tight focus:outline-none focus:bg-white rounded">
+          {{ form.name.label }}
+          {{ form.name(class="bg-pink-600 text-charcoal rounded-lg") }}
+        </div>
+      </label>
+      {% if form.name.errors %}
+      <ul>
+        {% for error in form.name.errors %}
+        <li class="error">{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
 
-  {{ form.name.label }}
-  {{ form.name }}
+      <label class="block uppercase tracking-wide text-xs font-bold mb-2">
+        <div class="appearance-none block w-full rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white">
+          {{ form.category.label }}
+          {{ form.category(class="bg-pink-600 text-charcoal rounded-lg") }}
+        </div>
+      </label>
+      {% if form.category.errors %}
+      <ul>
+        {% for error in form.category.errors %}
+        <li class="error">{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
 
-  {% if form.name.errors %}
-  <ul>
-    {% for error in form.name.errors %}
-    <li class="error">{{ error }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
+      <label class="block uppercase tracking-wide text-xs font-bold mb-2">
+        <div
+          class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white">
+          {{ form.fabrics.label }}
+          {{ form.fabrics(class="form-control bg-pink-600 text-charcoal rounded-lg", multiple="multiple") }}
+        </div>
+      </label>
+      {% if form.fabrics.errors %}
+      <ul>
+        {% for error in form.fabrics.errors %}
+        <li class="error">{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
 
+      <label class="block uppercase tracking-wide text-xs font-bold mb-2">
+        <div
+          class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white">
+          {{ form.photo_url.label }}
+          {{ form.photo_url(class="bg-pink-600 text-charcoal rounded-lg") }}
+        </div>
+      </label>
+      {% if form.photo_url.errors %}
+      <ul>
+        {% for error in form.photo_url.errors %}
+        <li class="error">{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
 
-  {{ form.category.label }}
-  {{ form.category }}
+      <div>
+        <button class="bg-dark-purple hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer"
+          type="submit">
+          {{ form.submit }}
+        </button>
+      </div>
+    </div>
 
-  {% if form.category.errors %}
-  <ul>
-    {% for error in form.category.errors %}
-    <li class="error">{{ error }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
-  {{ form.fabrics.label }}
-  {{ form.fabrics(class="form-control", multiple="multiple") }}
-
-  {% if form.fabrics.errors %}
-  <ul>
-    {% for error in form.fabrics.errors %}
-    <li class="error">{{ error }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
-  {{ form.photo_url.label }}
-  {{ form.photo_url }}
-
-  {% if form.photo_url.errors %}
-  <ul>
-    {% for error in form.photo_url.errors %}
-    <li class="error">{{ error }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
-  {{ form.submit }}
-</fieldset>
+  </fieldset>
+</div>

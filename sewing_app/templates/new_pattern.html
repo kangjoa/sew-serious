@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>New Pattern</h1>
+<h1 class="text-3xl font-semibold text-gray capitalize lg:text-4xl p-6">New Pattern</h1>
 
-<form method="POST" action="{{ url_for('main.new_pattern') }}">
+<form method="POST" action="{{ url_for('main.new_pattern') }}" class="w-full max-w-lg">
     {{ form.csrf_token }}
     {% include '_pattern_detail.html' %}
 </form>
