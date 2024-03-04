@@ -8,7 +8,10 @@
             <li><strong>Quantity:</strong> {{ fabric.quantity }} yds</li>
             <li><strong>Created By:</strong> {{ fabric.created_by.username }}</li>
         </ul>
-        <img class="w-45 h-1/3 object-cover rounded-lg mb-3" src="{{ fabric.photo_url }}" alt="Fabric Photo">
+        <div flex flex-col>
+            <img class="object-cover w-1/2 h-1/2 outline outline-1 outline-blue mb-3 rounded-lg"
+                src="{{ fabric.photo_url }}" alt="Fabric Photo">
+        </div>
         <form action="{{ url_for('main.add_to_fabrics_list', fabric_id=fabric.id) }}" method="POST">
             {{ form.csrf_token }}
             <button type="submit" class="bg-dark-purple p-2 mt-2 mb-3 rounded-lg">Add to Fabrics List</button>

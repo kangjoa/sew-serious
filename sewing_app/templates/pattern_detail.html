@@ -1,36 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>Pattern - {{ pattern.name }}</h1>
-<img src="{{ pattern.photo_url }}" width="250px" height="250px">
-<ul>
-    <li><strong>Name</strong> {{ pattern.name }}</li>
-    <li><strong>Category:</strong> {{ pattern.category }}</li>
-    <li><strong>Created by:</strong> {{ pattern.created_by.username }}</li>
-    <li><strong>Tagged fabrics for this pattern:</strong>
-        {% if pattern.fabrics %}
+<section>
+    <div class="mx-auto max-w-2xl px-6 py-6 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
+        <h1 class="text-3xl font-semibold text-gray capitalize lg:text-4xl ">Pattern - {{ pattern.name }}
+        </h1>
+        <a href="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}"><img src="{{ pattern.photo_url }}"
+                width="250px" height="250px" class="pt-5 pb-5"></a>
         <ul>
-            {% for fabric in pattern.fabrics %}
-            <li>
-                <a href="{{ url_for('main.fabric_detail', fabric_id=fabric.id) }}">{{ fabric.name }}</a>
-            </li>
-            {% endfor %}
-            {% else %}
-            <p>No fabrics tagged yet.</p>
-            {% endif %}
+            <li><strong>Name</strong> <a href="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}">{{
+                    pattern.name
+                    }}</a></li>
+            <li><strong>Category:</strong> {{ pattern.category }}</li>
+            <li><strong>Created by:</strong> {{ pattern.created_by.username }}</li>
+            <li class="pb-4"><strong>Tagged fabrics for this pattern:</strong>
+                {% if pattern.fabrics %}
+                <ul class="list-disc px-6 no-underline hover:underline">
+                    {% for fabric in pattern.fabrics %}
+                    <li>
+                        <a href="{{ url_for('main.fabric_detail', fabric_id=fabric.id) }}">{{ fabric.name }}</a>
+                    </li>
+                    {% endfor %}
+                    {% else %}
+                    <p>No fabrics tagged yet.</p>
+                    {% endif %}
+                </ul>
         </ul>
-</ul>
 
-<form action="{{ url_for('main.add_to_patterns_list', pattern_id=pattern.id) }}" method="POST">
-    {{ form.csrf_token }}
-    <button type="submit" class="btn-add-to-list">Add to Patterns List</button>
-</form>
+        <form action="{{ url_for('main.add_to_patterns_list', pattern_id=pattern.id) }}" method="POST">
+            {{ form.csrf_token }}
+            <button type="submit"
+                class="bg-dark-purple hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer">Add to
+                Patterns List</button>
+        </form>
 
-<h2>Edit Pattern</h2>
+        <h2 class="text-2xl bg-charcoal font-semibold text-gray capitalize lg:text-4xl p-6">Edit Pattern</h2>
 
-<form method="POST" action="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}">
-    {{ form.csrf_token }}
-    {% include '_pattern_detail.html' %}
-</form>
+        <form method="POST" action="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}">
+            {{ form.csrf_token }}
+            {% include '_pattern_detail.html' %}
+        </form>
 
-{% endblock %}
+        {% endblock %}
+    </div>
+</section>

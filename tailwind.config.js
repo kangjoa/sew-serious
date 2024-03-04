@@ -32,6 +32,7 @@ module.exports = {
         600: '#FFB97D',
       },
       green: '#A6FFCB',
+      'dark-green': '#4D7654',
       yellow: '#FFFACD',
       'gray-dark': '#6B6E70',
       gray: '#BDC0C2',
