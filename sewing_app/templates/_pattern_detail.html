@@ -5,7 +5,7 @@
       <label class="text-blue uppercase tracking-wide text-xs font-bold">
         <div class="appearance-none block w-full py-3 px-4 leading-tight focus:outline-none focus:bg-white rounded">
           {{ form.name.label }}
-          {{ form.name(class="bg-pink-600 text-charcoal rounded-lg") }}
+          {{ form.name(class="bg-orange-200 text-charcoal rounded-lg") }}
         </div>
       </label>
       {% if form.name.errors %}
@@ -19,7 +19,7 @@
       <label class="block uppercase tracking-wide text-xs font-bold mb-2">
         <div class="appearance-none block w-full rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white">
           {{ form.category.label }}
-          {{ form.category(class="bg-pink-600 text-charcoal rounded-lg") }}
+          {{ form.category(class="bg-orange-200 text-charcoal rounded-lg") }}
         </div>
       </label>
       {% if form.category.errors %}
@@ -34,7 +34,7 @@
         <div
           class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white">
           {{ form.fabrics.label }}
-          {{ form.fabrics(class="form-control bg-pink-600 text-charcoal rounded-lg", multiple="multiple") }}
+          {{ form.fabrics(class="form-control bg-orange-200 text-charcoal rounded-lg", multiple="multiple") }}
         </div>
       </label>
       {% if form.fabrics.errors %}
@@ -49,7 +49,7 @@
         <div
           class="appearance-none block w-full bg-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white">
           {{ form.photo_url.label }}
-          {{ form.photo_url(class="bg-pink-600 text-charcoal rounded-lg") }}
+          {{ form.photo_url(class="bg-orange-200 text-charcoal rounded-lg") }}
         </div>
       </label>
       {% if form.photo_url.errors %}

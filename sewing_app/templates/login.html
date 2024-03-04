@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Log In</h1>
+<h1 class="text-3xl bg-charcoal font-semibold text-gray capitalize lg:text-4xl p-6">Log In</h1>
 
 <form action="/login" method="POST" class="w-full max-w-sm">
   {{ form.csrf_token }}
@@ -12,8 +12,8 @@
       </label>
     </div>
     <div class="md:w-2/3">
-      {{ form.username(class="bg-pink-600 appearance-none border-2 border-gray rounded w-full py-2 px-4 text-charcoal
-      leading-tight focus:outline-none focus:bg-green focus:border-purple-500") }}
+      {{ form.username(class="bg-orange-200 appearance-none border-2 border-gray rounded w-full py-2 px-4 text-charcoal
+      leading-tight focus:outline-none focus:bg-yellow focus:border-purple-500") }}
       <ul>
         {% for error in form.username.errors %}
         <li class="error">{{ error }}</li>
@@ -28,8 +28,8 @@
       </label>
     </div>
     <div class="md:w-2/3">
-      {{ form.password(class="bg-pink-600 appearance-none border-2 border-gray rounded w-full py-2 px-4 text-charcoal
-      leading-tight focus:outline-none focus:bg-green focus:border-purple-500") }}
+      {{ form.password(class="bg-orange-200 appearance-none border-2 border-gray rounded w-full py-2 px-4 text-charcoal
+      leading-tight focus:outline-none focus:bg-yellow focus:border-purple-500") }}
       <ul>
         {% for error in form.password.errors %}
         <li class="error">{{ error }}</li>
