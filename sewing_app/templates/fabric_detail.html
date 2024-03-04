@@ -1,40 +1,47 @@
 {% extends 'base.html' %}
 {% block content %}
+<section>
+    <div class="mx-auto max-w-2xl px-6 py-6 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
+        <h1 class="text-3xl font-semibold text-gray capitalize lg:text-4xl">Fabric - {{ fabric.name }}</h1>
+        <ul>
+            <li><strong>Color:</strong> {{ fabric.color }}</li>
+            <li><strong>Quantity:</strong> {{ fabric.quantity }} yds</li>
+            <li><strong>Created By:</strong> {{ fabric.created_by.username }}</li>
+        </ul>
+        <img class="w-45 h-1/3 object-cover rounded-lg mb-3" src="{{ fabric.photo_url }}" alt="Fabric Photo">
+        <form action="{{ url_for('main.add_to_fabrics_list', fabric_id=fabric.id) }}" method="POST">
+            {{ form.csrf_token }}
+            <button type="submit" class="bg-dark-purple p-2 mt-2 mb-3 rounded-lg">Add to Fabrics List</button>
+        </form>
+        <div class="mx-auto max-w-2xl px-6 py-6 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
+            <h2>Sewing Patterns for this Fabric</h2>
+            {% if fabric.patterns|length == 0 %}
+            <p>No patterns tagged yet.</p>
+            {% else %}
 
-<h1>Fabric - {{ fabric.name }}</h1>
-<ul>
-    <li><strong>Color:</strong> {{ fabric.color }}</li>
-    <li><strong>Quantity:</strong> {{ fabric.quantity }} yds</li>
-    <li><strong>Created By:</strong> {{ fabric.created_by.username }}</li>
-</ul>
-<img class="fabric-photo" src="{{ fabric.photo_url }}" alt="Fabric Photo">
-<form action="{{ url_for('main.add_to_fabrics_list', fabric_id=fabric.id) }}" method="POST">
-    {{ form.csrf_token }}
-    <button type="submit" class="btn-add-to-list">Add to Fabrics List</button>
-</form>
-
-<h2>Sewing Patterns for this Fabric</h2>
-{% if fabric.patterns|length == 0 %}
-<p>No patterns tagged yet.</p>
-{% else %}
-
-<div class="patterns">
-    {% for pattern in fabric.patterns %}
-    <div class="pattern-details">
-        <a href="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}"><img class="pattern-photo"
-                src="{{ pattern.photo_url }}" alt="Pattern Photo"></a>
-        <p><strong>Pattern name: </strong>{{ pattern.name }}</p>
-        <p><strong>Category: </strong>{{ pattern.category }}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                {% for pattern in fabric.patterns %}
+                <div class="flex flex-col">
+                    <div class="leading-relaxed justify-between p-1 lg:mx-2">
+                        <a href="{{ url_for('main.pattern_detail', pattern_id=pattern.id) }}"><img
+                                class="object-cover w-50 h-1/2 rounded-lg mb-3" src="{{ pattern.photo_url }}"
+                                alt="Pattern Photo"></a>
+                        <p><strong>Pattern name: </strong>{{ pattern.name }}</p>
+                        <p><strong>Category: </strong>{{ pattern.category }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
     </div>
-    {% endfor %}
+</section>
+<div>
+    <h2>Edit Fabric</h2>
+
+    <form method="POST" action="{{ url_for('main.fabric_detail', fabric_id = fabric.id) }}">
+        {{ form.csrf_token }}
+        {% include '_fabric_detail.html' %}
+    </form>
 </div>
-{% endif %}
-
-<h2>Edit Fabric</h2>
-
-<form method="POST" action="{{ url_for('main.fabric_detail', fabric_id = fabric.id) }}">
-    {{ form.csrf_token }}
-    {% include '_fabric_detail.html' %}
-</form>
-
 {% endblock %}
