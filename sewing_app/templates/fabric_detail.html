@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="mx-auto max-w-2xl lg:max-w-7xl px-6 py-10 lg:px-8">
+<section class="mx-auto max-w-2xl lg:max-w-7xl px-6 py-10">
     <h1 class="text-3xl lg:text-4xl font-semibold text-gray capitalize pt-2">Fabric - {{ fabric.name }}</h1>
     <ul class="mt-4">
         <li><strong>Color:</strong> {{ fabric.color }}</li>
@@ -8,7 +8,7 @@
         <li><strong>Created By:</strong> {{ fabric.created_by.username }}</li>
     </ul>
     <div class="mt-6">
-        <img class="object-cover w-1/2 h-auto lg:w-full rounded-lg mb-3 outline outline-1 outline-blue"
+        <img class="object-cover w-1/2 h-auto rounded-lg mb-3 outline outline-1 outline-blue"
             src="{{ fabric.photo_url }}" alt="Fabric Photo">
     </div>
     <form action="{{ url_for('main.add_to_fabrics_list', fabric_id=fabric.id) }}" method="POST">
