@@ -17,7 +17,7 @@
             <button type="submit" class="bg-dark-purple p-2 mt-2 mb-3 rounded-lg">Add to Fabrics List</button>
         </form>
         <div class="mx-auto max-w-2xl px-6 py-6 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
-            <h2>Sewing Patterns for this Fabric</h2>
+            <h2 class="text-2xl font-bold tracking-tight text-gray">Sewing Patterns for this Fabric</h2>
             {% if fabric.patterns|length == 0 %}
             <p>No patterns tagged yet.</p>
             {% else %}
@@ -40,7 +40,7 @@
     </div>
 </section>
 <div>
-    <h2>Edit Fabric</h2>
+    <h2 class="text-2xl font-bold tracking-tight text-gray">Edit Fabric</h2>
 
     <form method="POST" action="{{ url_for('main.fabric_detail', fabric_id = fabric.id) }}">
         {{ form.csrf_token }}
